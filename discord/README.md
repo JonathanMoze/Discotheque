@@ -30,8 +30,8 @@ La procédure pour déployer un bot en `Python` est décrite ici : https://disco
 
 Voici la liste des dépendances `Python` :
 ~~~bash
-python3 install discord
-python3 install lxml
+pip3 install discord
+pip3 install lxml
 ~~~
 
 Il faut bien sûr spécifier dans `test.py` :
