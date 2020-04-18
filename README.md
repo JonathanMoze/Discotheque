@@ -1,4 +1,4 @@
-# Pour votre organisation en équipe
+# Organisation en équipe
 
 - Vous disposez un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommé sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affecté dans les canaux texte/audio correspondant à votre équipe.
 - Les supports de cours sont disponibles sur Moodle : https://moodle1.u-bordeaux.fr/course/view.php?id=5598
@@ -36,7 +36,7 @@ Puis, cliquez sur `Resolve Wip Status` afin de montrer que le travail est termin
 Prenez en compte les retours proposés par vos relecteurs. Pensez à fermer les discussions pour chaque commentaire lorsque vous avez résolu le problème.
 Si tout s’est bien passé, votre relecteur se chargera de faire le `Merge` final de votre branche. L'`issue`sera automatiquement fermée (`Closed`).
 
-*** Note *** Vous pouvez mentionner une `issue` dans le message associé à vos `commit` pour y faire référence. Un message `fix issue #xxx` (avec `xxx` le numéro de l'`issue`) fermera automatiquement cette `issue`.
+*** Note *** Vous pouvez mentionner une `issue` dans le message associé à vos `commit` pour y faire référence. Un message `fix issue #xxx` (avec `xxx` le numéro de l'`issue`) fermera automatiquement cette `issue`. Vous pouvez également faire référence à une autre `merge-request` avec un message contenant `#yyy` (avec `yyy` le numéro de la `merge-request`).
 
 ## Estimation du temps d'une `issue`
 
