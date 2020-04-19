@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/badges/master/pipeline.svg)](https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/pipelines)
+
 # Organisation en équipes
 
 - Vous disposez un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommé sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affecté dans les canaux texte/audio correspondant à votre équipe.
