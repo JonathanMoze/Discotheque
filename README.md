@@ -1,4 +1,4 @@
-# Organisation en équipe
+# Organisation en équipes
 
 - Vous disposez un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommé sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affecté dans les canaux texte/audio correspondant à votre équipe.
 - Les supports de cours sont disponibles sur Moodle : https://moodle1.u-bordeaux.fr/course/view.php?id=5598
@@ -22,7 +22,7 @@ Dans votre environnement de développement, pensez à faire un `git pull` pour �
 
 *** Note *** : Vous avez toujours accès au dépot https://gitlab-ce.iut.u-bordeaux.fr/Pierre/DEMO-GIT-PT2 pour un rappel des commandes `git` vues au début du semestre 2.
 
-## Passez en mode relecture (ou `Review`)
+## Passez en mode relecture (ou `review`)
 
 Une fois l’`issue` traitée, allez voir dans `GitLab` votre `merge-request`. Il se peut que vous ayez des conflits à régler. Vous pouvez tenter de les résoudre automatiquement sur l'interface web de `GitLab`, ou via votre environnement de développement. Une fois résolu, faites un `git commit` pour valider votre `merge`.
 
