@@ -53,10 +53,10 @@ Dans `Settings/General/Merge Requests/Merge checks`, il est conseillé de défin
 - [x] `Pipelines must succeed`
 - [x] `All discussions must be resolved`
 
-Vous pouvez également imposer que votre contribution soit `rebasée` avant d'être fusionnée en sélectionnant dans `Settings/General/Merge Requests/Merge method` :
+Vous pouvez également imposer que votre contribution soit `rebasée` avant d'être fusionnée en sélectionnant dans `Settings/General/Merge Requests/Merge method` l'une des deux méthodes suivantes :
 
 - [x] `Merge commit with semi-linear history`
-- [x] `Fast-forward merge`
+- [ ] `Fast-forward merge`
 
 Vous trouverez également deux fichiers cachés à la racine de ce dépôt :
 
