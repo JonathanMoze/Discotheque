@@ -90,6 +90,38 @@ La démarche est alors la suivante :
 - lancer `import project`,
 - vous avez votre copie personnelle du dépôt.
 
+# Comment conserver un fichier de configuration privé
+
+Pour ce projet orienté "bases de données", vous allez devoir utiliser un serveur `SQL Server` local sous `Windows` (voir https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd/-/blob/master/README.md).
+
+Afin de travailler en équipe, on vous demande de versionner votre code sur le `Gitlab` de l'IUT. Depuis l'interface `Visual Studio`, dans le menu gérant les extensions, vous trouverez un `plugin` pour `Gitlab` (https://marketplace.visualstudio.com/items?itemName=MysticBoy.GitLabExtensionforVisualStudio). On vous recommande de l'utiliser. Vous pourrez ainsi visualiser vos branches (crées manuellement ou par `merge-request`) de manière graphique sans passer par une ligne de commande.
+
+Il reste cependant un problème : votre `url` de connexion à la base de données doit rester privée (elle est nécessairement différente pour chaque co-équipier et ne doit pas être versionnée). La solution consiste à "stocker" cette `url` dans un fichier de configuration. Voici alors la ligne de code pour ouvrir une connexion :
+```cs
+using System.Configuration;
+...
+dbCon = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+```
+en supposant que le fichier de configuration de l'application (`App.config` à la racine du projet) contienne, par exemple :
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    ...
+    <connectionStrings>
+      <add name="MyConnectionString" connectionString="Provider=SQLOLEDB;Data Source=DESKTOP-FATLC4L;Initial Catalog=Championnat;Integrated Security=SSPI" />
+    </connectionStrings>
+</configuration>
+```
+
+*** Note *** C'est également dans ce fichier de configuration que vous allez retrouver votre version du framework `.NET` (on vous recommande d'utiliser la même version).
+
+Pour finir, il est nécessaire d'ignorer ce fichier (`App.config`) lors des futurs `commits`.
+- Soit vous avez ignoré ce fichier depuis le début en l'ajoutant dans le fichier `.gitignore` du projet.
+- Soit vous pouvez l'ignorer a posteriori (par exemple si vous avez suivi la procédure ci-dessus pour "importer" le projet initial) à l'aide de la commande :
+```bash
+git update-index --skip-worktree path/to/file
+```
+
 # Quelques ressources complémentaires
 
 - https://makina-corpus.com/blog/metier/2019/gitlab-astuces-projets
