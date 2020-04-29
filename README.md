@@ -122,6 +122,31 @@ Pour finir, il est nécessaire d'ignorer ce fichier (`App.config`) lors des futu
 git update-index --skip-worktree path/to/file
 ```
 
+# Ressources du cours
+
+## Les bases de données
+
+- la base `Championnat` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/championnat/Championnat_0_Creation.sql
+- la base `Modules` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/modules/Modules_0_Creation.sql
+- la base `MusiqueSQl` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/README.md
+
+## Les supports
+
+- Rappels `SQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-1-SQL.pdf
+- `Transact-SQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-2-TSQL.pdf
+- `C#` avec `OLEDB` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-3-OLEDB.pdf
+- `C#` avec `EF` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-4-EF.pdf
+
+## Les exemples de code
+
+- 2 versions avec `OleDb` :
+  - Application `WindowsForms` (base `MusiqueSQL`) - 2 `ListBox` pour afficher les musiciens et leurs oeuvres : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/OLEDB_Musiciens_WindowsForms_App/README.md
+  - Application `WindowsForms` (base `Championnat`) - Mise à jour des joueurs : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/OLEDB_Championnat_Update_App/README.md
+
+- 2 versions avec `Entity Framework` :
+  - Application `WindowsForms` (base `MusiqueSQL`) - 2 `ListBox` pour afficher les musiciens et leurs oeuvres : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/EF_Musiciens_WindowsForms_App/README.md
+  - Application `WindowsForms` (base `Championnat`) - Mise à jour des joueurs : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/EF_Championnat_Update_App/README.md
+
 # Quelques ressources complémentaires
 
 - https://makina-corpus.com/blog/metier/2019/gitlab-astuces-projets
