@@ -126,26 +126,32 @@ git update-index --skip-worktree path/to/file
 
 ## Les bases de données
 
+Dans le sous répertoire `databases` vous trouverez :
+
 - la base `Championnat` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/championnat/Championnat_0_Creation.sql
 - la base `Modules` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/modules/Modules_0_Creation.sql
 - la base `MusiqueSQl` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/README.md
 
 ## Les supports
 
-- Rappels `SQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-1-SQL.pdf
-- `Transact-SQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-2-TSQL.pdf
-- `C#` avec `OLEDB` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-3-OLEDB.pdf
-- `C#` avec `EF` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-4-EF.pdf
+Dans le sous répertoire `supports` vous trouverez :
+
+- les rappels `SQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-1-SQL.pdf
+- le support `Transact-SQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-2-TSQL.pdf
+- le support `C#` avec `OLEDB` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-3-OLEDB.pdf
+- le support `C#` avec `EF` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-4-EF.pdf
 
 ## Les exemples de code
 
-- 2 versions avec `OleDb` :
-  - Application `WindowsForms` (base `MusiqueSQL`) - 2 `ListBox` pour afficher les musiciens et leurs oeuvres : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/OLEDB_Musiciens_WindowsForms_App/README.md
-  - Application `WindowsForms` (base `Championnat`) - Mise à jour des joueurs : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/OLEDB_Championnat_Update_App/README.md
+Dans le sous répertoire `exemples` vous trouverez :
 
-- 2 versions avec `Entity Framework` :
-  - Application `WindowsForms` (base `MusiqueSQL`) - 2 `ListBox` pour afficher les musiciens et leurs oeuvres : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/EF_Musiciens_WindowsForms_App/README.md
-  - Application `WindowsForms` (base `Championnat`) - Mise à jour des joueurs : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/EF_Championnat_Update_App/README.md
+- 2 applications `WindowsForms` avec `OleDb` :
+  - avec la base `MusiqueSQL` - 2 `ListBox` pour afficher les musiciens et leurs oeuvres : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/OLEDB_Musiciens_WindowsForms_App/README.md
+  - avec la base `Championnat` - Mise à jour des joueurs : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/OLEDB_Championnat_Update_App/README.md
+
+- 2 applications `WindowsForms` avec `Entity Framework` :
+  - avec la base `MusiqueSQL` - 2 `ListBox` pour afficher les musiciens et leurs oeuvres : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/EF_Musiciens_WindowsForms_App/README.md
+  - avec la base  `Championnat` - Mise à jour des joueurs : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/EF_Championnat_Update_App/README.md
 
 # Quelques ressources complémentaires
 
