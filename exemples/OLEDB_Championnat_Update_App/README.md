@@ -1,11 +1,10 @@
 ## Projet exemple pour illustrer les mises à jour d'une base de données via OLEDB
 
-Ce projet permet de voir comment fonctionnent les opérations de mise à jour d'une table via OLEDB.
+* Base concernée : `Championnat`.
+* Opérations de mise à jour : ajout, modification ou suppression de tuples dans la table `Joueurs`.
 
-Il ne s'agit pas d'un outil "complet", mais d'une simple illustration. Il ne permet ainsi que d'effectuer 
-des opérations de mise à jour sur la table JOUEURS de la base de données CHAMPIONNAT, et uniquement pour
-les joueurs de l'équipe ayant pour ID_EQUIPE la valeur "1".
+*** Note *** Il ne s'agit pas d'un outil "complet", mais d'une simple illustration. Il ne permet ainsi que d'effectuer des opérations de mise à jour sur la table `Joueurs` de la base de données `Championnat`, et uniquement pour les joueurs de l'équipe ayant pour `Id_Equipe` la valeur `1`.
 
-Pour tester ce projet, vous devrez :
-* adapter le fichier app.config (nom de votre serveur)
-* éventuellement adapter le code dans Form1.cs si vous n'avez pas d'équipe ayant "1" pour identifiant.
+Pour tester ce projet, vous devrez adapter le fichier `app.config` (nom de votre serveur).
+
+*** Note *** Vous devrez éventuellement adapter le code dans `Form1.cs` si vous n'avez pas d'équipe ayant `1` pour identifiant.
