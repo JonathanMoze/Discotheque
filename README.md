@@ -8,7 +8,8 @@ Mais lors du `fork` l’organisation (`issues`, `milestones`, `labels`) est réi
 Pour faire une copie intégrale du dépôt, il faut passer par la fonction `export/import` de `Gitlab` :  https://docs.gitlab.com/ee/user/project/settings/import_export.html .
 La démarche est alors la suivante :
 - depuis `Gitlab` : créer un nouveau projet (le `+` dans le bandeau principal), sélectionner `import project` puis  `from Gitlab export`,
-- donner un nom au nouveau projet (par exemple `m2106_bd_agile_import`) et choisir le fichier d'export (par exemple `2020-04-20_09-28-307_Pierre_m2106_bd_agile_export.tar.gz`),
+- donner un nom au nouveau projet (par exemple `m2106_bd_agile_import`) et choisir le fichier d'export (par exemple :
+https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/2020-04-30_08-53-552_Pierre_m2106_bd_agile_export.tar.gz),
 - lancer `import project`,
 - vous avez votre copie personnelle du dépôt.
 
