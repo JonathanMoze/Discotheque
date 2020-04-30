@@ -1,5 +1,17 @@
 [![pipeline status](https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/badges/master/pipeline.svg)](https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/pipelines)
 
+# Comment dupliquer ce dépôt
+
+Vous pouvez `forker` ce projet (la fourchette en haut à droite sur la page principale du dépôt) dans votre espace pour travailler tranquillement sur une copie privée, ou `commiter` dans ce dépôt si vous avez les droits de `Developer`.
+Mais lors du `fork` l’organisation (`issues`, `milestones`, `labels`) est réinitialisée.
+
+Pour faire une copie intégrale du dépôt, il faut passer par la fonction `export/import` de `Gitlab` :  https://docs.gitlab.com/ee/user/project/settings/import_export.html .
+La démarche est alors la suivante :
+- depuis `Gitlab` : créer un nouveau projet (le `+` dans le bandeau principal), sélectionner `import project` puis  `from Gitlab export`,
+- donner un nom au nouveau projet (par exemple `m2106_bd_agile_import`) et choisir le fichier d'export (par exemple `2020-04-20_09-28-307_Pierre_m2106_bd_agile_export.tar.gz`),
+- lancer `import project`,
+- vous avez votre copie personnelle du dépôt.
+
 # Organisation en équipes
 
 - Vous disposez d'un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommés sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affectés dans les canaux texte/audio correspondant à votre équipe.
@@ -77,18 +89,6 @@ Le temps se décline en :
 - m : minutes
 
 La barre de progression du jalon pourra en tenir compte.
-
-# Comment dupliquer ce dépôt
-
-Vous pouvez `forker` ce projet (la fourchette en haut à droite sur la page principale du dépôt) dans votre espace pour travailler tranquillement sur une copie privée, ou `commiter` dans ce dépôt si vous avez les droits de `Developer`.
-Mais lors du `fork` l’organisation (`issues`, `milestones`, `labels`) est réinitialisée.
-
-Pour faire une copie intégrale du dépôt, il faut passer par la fonction `export/import` de `Gitlab` :  https://docs.gitlab.com/ee/user/project/settings/import_export.html .
-La démarche est alors la suivante :
-- depuis `Gitlab` : créer un nouveau projet (le `+` dans le bandeau principal), sélectionner `import project` puis  `from Gitlab export`,
-- donner un nom au nouveau projet (par exemple `m2106_bd_agile_import`) et choisir le fichier d'export (par exemple `2020-04-20_09-28-307_Pierre_m2106_bd_agile_export.tar.gz`),
-- lancer `import project`,
-- vous avez votre copie personnelle du dépôt.
 
 # Comment conserver un fichier de configuration privé
 
