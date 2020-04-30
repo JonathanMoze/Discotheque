@@ -1,5 +1,17 @@
 [![pipeline status](https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/badges/master/pipeline.svg)](https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/pipelines)
 
+# Comment dupliquer ce dépôt
+
+Vous pouvez `forker` ce projet (la fourchette en haut à droite sur la page principale du dépôt) dans votre espace pour travailler tranquillement sur une copie privée, ou `commiter` dans ce dépôt si vous avez les droits de `Developer`.
+Mais lors du `fork` l’organisation (`issues`, `milestones`, `labels`) est réinitialisée.
+
+Pour faire une copie intégrale du dépôt, il faut passer par la fonction `export/import` de `Gitlab` :  https://docs.gitlab.com/ee/user/project/settings/import_export.html .
+La démarche est alors la suivante :
+- depuis `Gitlab` : créer un nouveau projet (le `+` dans le bandeau principal), sélectionner `import project` puis  `from Gitlab export`,
+- donner un nom au nouveau projet (par exemple `m2106_bd_agile_import`) et choisir le fichier d'export (par exemple `2020-04-20_09-28-307_Pierre_m2106_bd_agile_export.tar.gz`),
+- lancer `import project`,
+- vous avez votre copie personnelle du dépôt.
+
 # Organisation en équipes
 
 - Vous disposez d'un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommés sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affectés dans les canaux texte/audio correspondant à votre équipe.
@@ -78,18 +90,6 @@ Le temps se décline en :
 
 La barre de progression du jalon pourra en tenir compte.
 
-# Comment dupliquer ce dépôt
-
-Vous pouvez `forker` ce projet (la fourchette en haut à droite sur la page principale du dépôt) dans votre espace pour travailler tranquillement sur une copie privée, ou `commiter` dans ce dépôt si vous avez les droits de `Developer`.
-Mais lors du `fork` l’organisation (`issues`, `milestones`, `labels`) est réinitialisée.
-
-Pour faire une copie intégrale du dépôt, il faut passer par la fonction `export/import` de `Gitlab` :  https://docs.gitlab.com/ee/user/project/settings/import_export.html .
-La démarche est alors la suivante :
-- depuis `Gitlab` : créer un nouveau projet (le `+` dans le bandeau principal), sélectionner `import project` puis  `from Gitlab export`,
-- donner un nom au nouveau projet (par exemple `m2106_bd_agile_import`) et choisir le fichier d'export (par exemple `2020-04-20_09-28-307_Pierre_m2106_bd_agile_export.tar.gz`),
-- lancer `import project`,
-- vous avez votre copie personnelle du dépôt.
-
 # Comment conserver un fichier de configuration privé
 
 Pour ce projet orienté "bases de données", vous allez devoir utiliser un serveur `SQL Server` local sous `Windows` (voir https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd/-/blob/master/README.md).
@@ -121,6 +121,37 @@ Pour finir, il est nécessaire d'ignorer ce fichier (`App.config`) lors des futu
 ```bash
 git update-index --skip-worktree path/to/file
 ```
+
+# Ressources du cours
+
+## Les bases de données
+
+Dans le sous répertoire `databases` vous trouverez :
+
+- la base `Championnat` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/championnat/Championnat_0_Creation.sql
+- la base `Modules` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/modules/Modules_0_Creation.sql
+- la base `MusiqueSQl` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/README.md
+
+## Les supports
+
+Dans le sous répertoire `supports` vous trouverez :
+
+- les rappels `SQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-1-SQL.pdf
+- le support `Transact-SQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-2-TSQL.pdf
+- le support `C#` avec `OLEDB` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-3-OLEDB.pdf
+- le support `C#` avec `EF` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/M2106-4-EF.pdf
+
+## Les exemples de code
+
+Dans le sous répertoire `exemples` vous trouverez :
+
+- 2 applications `WindowsForms` avec `OleDb` :
+  - avec la base `MusiqueSQL` - 2 `ListBox` pour afficher les musiciens et leurs oeuvres : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/OLEDB_Musiciens_WindowsForms_App/README.md
+  - avec la base `Championnat` - Mise à jour des joueurs : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/OLEDB_Championnat_Update_App/README.md
+
+- 2 applications `WindowsForms` avec `Entity Framework` :
+  - avec la base `MusiqueSQL` - 2 `ListBox` pour afficher les musiciens et leurs oeuvres : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/EF_Musiciens_WindowsForms_App/README.md
+  - avec la base  `Championnat` - Mise à jour des joueurs : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/exemples/EF_Championnat_Update_App/README.md
 
 # Quelques ressources complémentaires
 
