@@ -15,8 +15,7 @@ https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/2020-04-
 
 # Organisation en équipes
 
-- Vous disposez d'un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommés sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affectés dans les canaux texte/audio correspondant à votre équipe.
-- Les supports de cours sont disponibles sur Moodle : https://moodle1.u-bordeaux.fr/course/view.php?id=5598
+Vous disposez d'un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommés sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affectés dans les canaux texte/audio correspondant à votre équipe.
 
 # Utilisation de Gitlab pour gérer son projet
 
@@ -124,6 +123,11 @@ git update-index --skip-worktree path/to/file
 ```
 
 # Ressources du cours
+
+Les supports de cours sont disponibles :
+- sur `Moodle` pour la parte `Agile` : https://moodle1.u-bordeaux.fr/course/view.php?id=5598
+- sur `Moodle` pour la partie `BD` : https://moodle1.u-bordeaux.fr/course/view.php?id=5598
+- et sur le dépôt `Gitlab` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd
 
 ## Les bases de données
 
