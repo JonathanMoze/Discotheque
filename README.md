@@ -2,8 +2,10 @@
 
 # Comment dupliquer ce dépôt
 
-Vous pouvez `forker` ce projet (la fourchette en haut à droite sur la page principale du dépôt) dans votre espace pour travailler tranquillement sur une copie privée, ou `commiter` dans ce dépôt si vous avez les droits de `Developer`.
-Mais lors du `fork` l’organisation (`issues`, `milestones`, `labels`) est réinitialisée.
+<!-- Vous pouvez `forker` ce projet (la fourchette en haut à droite sur la page principale du dépôt) dans votre espace pour travailler tranquillement sur une copie privée, ou `commiter` dans ce dépôt si vous avez les droits de `Developer`.
+Mais lors du `fork` l’organisation (`issues`, `milestones`, `labels`) est réinitialisée. -->
+
+L'un des membres de l'équipe (`maintainer`) doit réaliser cette étape.
 
 Pour faire une copie intégrale du dépôt, il faut passer par la fonction `export/import` de `Gitlab` :  https://docs.gitlab.com/ee/user/project/settings/import_export.html .
 La démarche est alors la suivante :
@@ -21,6 +23,23 @@ Vous disposez d'un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agi
 
 Voici les étapes à suivre pour gérer efficacement votre projet.
 
+## Constituer son équipe
+
+Le `maintainer` doit constituer son équipe :
+-	inviter les autres membres de l’équipe en tant que `developer`,
+-	inviter vos enseignants `C. Uny`, `P. Ramet` et `E. Sopena` en tant que `reporter`.
+
+## Configurer Visual Studio
+
+1. Installer l’extension `GitLab` (https://marketplace.visualstudio.com/items?itemName=MysticBoy.GitLabExtensionforVisualStudio),
+puis exécuter `GitLab_Extension_for_Visual_Studio_v1.0.189.vsix`,
+2. Sous `Visual Studio`, menu `Affichage / Team Explorer`,
+3. Se connecter,
+4. Créer dépôt (fenêtre `Team Explorer`), en ajoutant le `.gitignore` « visual studio »,
+5. Bouton `Home` (fenêtre `Team Explorer`), vous êtes prêt à travailler !
+
+![gitlab](gitlab.png)
+
 ## Définir et affecter une `issue` (ou `user-story`)
 
 Si la tâche ne vous a pas encore été attribuée, rendez-vous dans la section `issues` et assignez-vous une `issue` ayant pour label `ToDo`. Les `issues` sont en fait des tâches à faire, elles peuvent être attribuées à une ou plusieurs personnes. Par défaut, nous avons les labels : `Open`, `ToDo`, `Doing`, `Closed`.
@@ -34,7 +53,11 @@ Vous pouvez aussi regrouper les `issues` par jalons (ou `milestones`), qui peuve
 Une fois assigné, glissez l’`issue` vers le label `Doing`. Ouvrez ensuite l’`issue` puis cliquez sur `Create Merge Request`. Cette action va créer automatiquement une `merge-request` avec le statut `WIP` (Work In Progress). La branche de travail associée à cette dernière est également créée.
 Dans votre environnement de développement, pensez à faire un `git pull` pour être sûr d’être à jour. La nouvelle branche que vous venez de créer a été synchronisée. Basculez sur cette branche avec un `git switch` (ou `git checkout` si votre `git` n'est pas suffisamment récent).
 
-*** Note *** : Vous avez toujours accès au dépot https://gitlab-ce.iut.u-bordeaux.fr/Pierre/DEMO-GIT-PT2 pour un rappel des commandes `git` vues au début du semestre 2.
+*** Depuis `Visual Studio` *** :
+-	onglet `Team Explorer / synchroniser / validations entrantes / tirer` pour mettre à jour votre copie locale,
+-	puis aller sur `Branches / Remotes`, un double-clic sur la nouvelle branche pour qu’elle soit créée en local et pour pouvoir basculer dessus.
+
+*** Note *** : Vous avez toujours accès au dépôt https://gitlab-ce.iut.u-bordeaux.fr/Pierre/DEMO-GIT-PT2 pour un rappel des commandes `git` vues au début du semestre 2.
 
 ## Passez en mode relecture (ou `review`)
 
