@@ -25,8 +25,7 @@ namespace WindowsFormsApp2
             foreach (Musicien m in musiciens)
             {
                 //Console.Write(m.Nom_Musicien + ", ");
-                MyMusicien mm = new MyMusicien(m);
-                listBox1.Items.Add(mm);
+                listBox1.Items.Add(m);
             }
         }
 
@@ -40,22 +39,19 @@ namespace WindowsFormsApp2
                              select m).ToList();
             foreach (Musicien m in musiciens)
             {
-                MyMusicien mm = new MyMusicien(m);
-                listBox1.Items.Add(mm);
+                listBox1.Items.Add(m);
             }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             listBox2.Items.Clear();
-            MyMusicien x = (MyMusicien)listBox1.SelectedItem;
-            Musicien m = x.me;
+            Musicien m = (Musicien)listBox1.SelectedItem;
             
             foreach (Oeuvre o in m.Oeuvre)
             {
-                //MyOeuvre oo = new MyOeuvre(o);
-                //listBox2.Items.Add(oo);
-                listBox2.Items.Add(o.Titre_Oeuvre);
+                //listBox2.Items.Add(o.Titre_Oeuvre);
+                listBox2.Items.Add(o);
             }
             /*
             foreach (Diriger d in x.me.Diriger)

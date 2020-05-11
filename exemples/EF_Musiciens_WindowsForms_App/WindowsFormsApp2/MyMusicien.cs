@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp2
 {
-    class MyMusicien
+    public partial class Musicien
     {
-        public Musicien me { get; set; }
-        public MyMusicien(Musicien m)
-        {
-            me = m;
-        }
         public override string ToString()
         {
-            return me.Nom_Musicien + " " + me.Prénom_Musicien;
+            return Nom_Musicien + " " + Prénom_Musicien;
         }
     }
 }
