@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp2
 {
-    class MyOeuvre
+    public partial class Oeuvre
     {
-        public Oeuvre me { get; set; }
-        public MyOeuvre(Oeuvre m)
-        {
-            me = m;
-        }
         public override string ToString()
         {
-            return me.Titre_Oeuvre;
+            return Titre_Oeuvre;
         }
     }
 }

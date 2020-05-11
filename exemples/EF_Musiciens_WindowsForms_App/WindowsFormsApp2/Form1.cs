@@ -1,67 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Diagnostics;
+    using System.Windows.Forms;
+    using System.Collections;
 
-namespace WindowsFormsApp2
-{
-    public partial class Form1 : Form
+    namespace WindowsFormsApp2
     {
-        MusiqueSQLEntities musique;
-        public Form1()
+        public partial class Form1 : Form
         {
-            InitializeComponent();
-            musique = new MusiqueSQLEntities();
+            MusiqueSQLEntities musique;
 
-            var musiciens = (from m in musique.Musicien
-                             //where m.Nom_Musicien.StartsWith(textBox1.Text)
-                             orderby m.Nom_Musicien
-                             select m).ToList();
-            foreach (Musicien m in musiciens)
+            public Form1()
             {
-                //Console.Write(m.Nom_Musicien + ", ");
-                MyMusicien mm = new MyMusicien(m);
-                listBox1.Items.Add(mm);
+                InitializeComponent();
+                musique = new MusiqueSQLEntities();
+                ChargeLesCompositeurs();
             }
-        }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            listBox1.Items.Clear();
-            listBox2.Items.Clear();
-            var musiciens = (from m in musique.Musicien
-                             where m.Nom_Musicien.StartsWith(textBox1.Text)
-                             orderby m.Nom_Musicien
-                             select m).ToList();
-            foreach (Musicien m in musiciens)
+            private void ChargeLesCompositeurs()
             {
-                MyMusicien mm = new MyMusicien(m);
-                listBox1.Items.Add(mm);
+                // on récupère tous les compositeurs
+                var musiciens = (from m in musique.Musicien
+                                 where m.Oeuvre.Count > 0
+                                 orderby m.Nom_Musicien
+                                 select m).ToList();
+                // on crée les objets locaux et on remplit la listbox
+                foreach (Musicien m in musiciens)
+                {
+                    listBox1.Items.Add(m);
+                }
             }
-        }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            listBox2.Items.Clear();
-            MyMusicien x = (MyMusicien)listBox1.SelectedItem;
-            Musicien m = x.me;
-            
-            foreach (Oeuvre o in m.Oeuvre)
+            private void textBox1_TextChanged(object sender, EventArgs e)
             {
-                //MyOeuvre oo = new MyOeuvre(o);
-                //listBox2.Items.Add(oo);
-                listBox2.Items.Add(o.Titre_Oeuvre);
+                // on récupère tous les compositeurs satisfaisant le critère de recherche
+                // ToUpper --> pour rester "case insensitive"
+                var musiciens = (from m in musique.Musicien
+                                 where m.Oeuvre.Count > 0 && m.Nom_Musicien.ToUpper().Contains(textBox1.Text.ToUpper())
+                                 orderby m.Nom_Musicien
+                                 select m).ToList();
+                // on réinitialise les deux listBox
+                listBox1.Items.Clear();
+                listBox2.Items.Clear();
+                // on insère dans listBox1 les musiciens récupérés
+                foreach (Musicien m in musiciens)
+                {
+                    listBox1.Items.Add(m);
+                }
             }
-            /*
-            foreach (Diriger d in x.me.Diriger)
-                foreach (Composition_Disque c in d.Enregistrement.Composition_Disque)
-                    listBox2.Items.Add(c.Disque.Album.Titre_Album);
-            */
+
+            private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+            {
+                listBox2.Items.Clear();
+                Musicien m = (Musicien)listBox1.SelectedItem;
+                foreach (Oeuvre o in m.Oeuvre)
+                {
+                    listBox2.Items.Add(o.Titre_Oeuvre);
+                }
+            }
         }
     }
-}
+
+/*
+foreach (Diriger d in x.me.Diriger)
+    foreach (Composition_Disque c in d.Enregistrement.Composition_Disque)
+        listBox2.Items.Add(c.Disque.Album.Titre_Album);
+*/
