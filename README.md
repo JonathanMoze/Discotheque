@@ -46,18 +46,18 @@ Si la tâche ne vous a pas encore été attribuée, rendez-vous dans la section 
 
 Vous pouvez aussi regrouper les `issues` par jalons (ou `milestones`), qui peuvent représenter par exemple des sprints dans une méthodologie agile. Le jalon est terminé lorsque toutes ses `issues` sont `Closed`.
 
-*** Note *** : Sous la présentation Gitlab `Board`, on peut déplacer facilement les différentes issues en fonction de leur état d’avancement.
+***Note*** : Sous la présentation Gitlab `Board`, on peut déplacer facilement les différentes issues en fonction de leur état d’avancement.
 
 ## Créer une `merge request` pour débuter votre contribution
 
 Une fois assigné, glissez l’`issue` vers le label `Doing`. Ouvrez ensuite l’`issue` puis cliquez sur `Create Merge Request`. Cette action va créer automatiquement une `merge-request` avec le statut `WIP` (Work In Progress). La branche de travail associée à cette dernière est également créée.
 Dans votre environnement de développement, pensez à faire un `git pull` pour être sûr d’être à jour. La nouvelle branche que vous venez de créer a été synchronisée. Basculez sur cette branche avec un `git switch` (ou `git checkout` si votre `git` n'est pas suffisamment récent).
 
-*** Depuis `Visual Studio` *** :
+***Depuis `Visual Studio`*** :
 -	onglet `Team Explorer / synchroniser / validations entrantes / tirer` pour mettre à jour votre copie locale,
 -	puis aller sur `Branches / Remotes`, un double-clic sur la nouvelle branche pour qu’elle soit créée en local et pour pouvoir basculer dessus.
 
-*** Note *** : Vous avez toujours accès au dépôt https://gitlab-ce.iut.u-bordeaux.fr/Pierre/DEMO-GIT-PT2 pour un rappel des commandes `git` vues au début du semestre 2.
+***Note*** : Vous avez toujours accès au dépôt https://gitlab-ce.iut.u-bordeaux.fr/Pierre/DEMO-GIT-PT2 pour un rappel des commandes `git` vues au début du semestre 2.
 
 ## Passez en mode relecture (ou `review`)
 
@@ -73,7 +73,7 @@ Puis, cliquez sur `Resolve Wip Status` afin de montrer que le travail est termin
 Prenez en compte les retours proposés par vos relecteurs. Pensez à fermer les discussions pour chaque commentaire lorsque vous avez résolu le problème.
 Si tout s’est bien passé, votre relecteur se chargera de faire le `Merge` final de votre branche. L'`issue`sera automatiquement fermée (`Closed`).
 
-*** Note *** Vous pouvez mentionner une `issue` dans le message associé à vos `commit` pour y faire référence. Un message `fix issue #xxx` (avec `xxx` le numéro de l'`issue`) fermera automatiquement cette `issue`. Vous pouvez également faire référence à une autre `merge-request` avec un message contenant `#yyy` (avec `yyy` le numéro de la `merge-request`).
+***Note*** Vous pouvez mentionner une `issue` dans le message associé à vos `commit` pour y faire référence. Un message `fix issue #xxx` (avec `xxx` le numéro de l'`issue`) fermera automatiquement cette `issue`. Vous pouvez également faire référence à une autre `merge-request` avec un message contenant `#yyy` (avec `yyy` le numéro de la `merge-request`).
 
 ## En tant que relecteur
 
@@ -136,7 +136,7 @@ en supposant que le fichier de configuration de l'application (`App.config` à l
 </configuration>
 ```
 
-*** Note *** C'est également dans ce fichier de configuration que vous allez retrouver votre version du framework `.NET` (on vous recommande d'utiliser la même version).
+***Note*** C'est également dans ce fichier de configuration que vous allez retrouver votre version du framework `.NET` (on vous recommande d'utiliser la même version).
 
 Pour finir, il est nécessaire d'ignorer ce fichier (`App.config`) lors des futurs `commits`.
 - Soit vous avez ignoré ce fichier depuis le début en l'ajoutant dans le fichier `.gitignore` du projet.
@@ -149,7 +149,7 @@ git update-index --skip-worktree path/to/file
 
 Les supports de cours sont disponibles :
 - sur `Moodle` pour la parte `Agile` : https://moodle1.u-bordeaux.fr/course/view.php?id=5598
-- sur `Moodle` pour la partie `BD` : https://moodle1.u-bordeaux.fr/course/view.php?id=5598
+- sur `Moodle` pour la partie `BD` : https://moodle1.u-bordeaux.fr/course/view.php?id=1465
 - et sur le dépôt `Gitlab` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd
 
 ## Les bases de données
@@ -158,7 +158,7 @@ Dans le sous répertoire `databases` vous trouverez :
 
 - la base `Championnat` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/championnat/Championnat_0_Creation.sql
 - la base `Modules` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/modules/Modules_0_Creation.sql
-- la base `MusiqueSQl` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/README.md
+- la base `MusiqueSQL` : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/README.md
 
 ## Les supports
 
