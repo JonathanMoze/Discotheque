@@ -15,7 +15,6 @@ namespace WindowsFormsApp_GestionJoueurs
     public partial class Form1 : Form
     {
         OleDbConnection dbCon;
-
         public Form1()
         {
             InitializeComponent();
@@ -56,17 +55,25 @@ namespace WindowsFormsApp_GestionJoueurs
 
         private void ListBoxJoueurs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // récupération du joueur sélectionné et mise àjour des deux TextBox
-            Joueurs j = (Joueurs)ListBoxJoueurs.SelectedItem;
-            textBoxNom.Text = j.getNom();
-            textBoxSalaire.Text = j.getSalaire().ToString();
+            if (ListBoxJoueurs.SelectedIndex != -1)
+            {
+                // récupération du joueur sélectionné et mise àjour des deux TextBox
+                Joueurs j = (Joueurs)ListBoxJoueurs.SelectedItem;
+                textBoxNom.Text = j.getNom();
+                textBoxSalaire.Text = j.getSalaire().ToString();
+            }
+        }
+
+        private void Rafraichir()
+        {
+            textBoxNom.Clear();
+            textBoxSalaire.Clear();
+            ListBoxJoueurs.ClearSelected();
         }
 
         private void ButtonRafraichir_Click(object sender, EventArgs e)
         {
-            textBoxNom.Text = "";
-            textBoxSalaire.Text = "";
-            ListBoxJoueurs.ClearSelected();
+            Rafraichir();
         }
 
         private void ButtonAjouter_Click(object sender, EventArgs e)
@@ -106,16 +113,17 @@ namespace WindowsFormsApp_GestionJoueurs
         {
             if (ListBoxJoueurs.SelectedItem != null)
             {
-                    // suppression du joueur de la base
-                    string delete = "delete from JOUEURS where NOM = '" +
-                        textBoxNom.Text + "' and SALAIRE = '" + textBoxSalaire.Text + "'";
-                    OleDbCommand cmd = new OleDbCommand(delete, dbCon);
-                    cmd.ExecuteNonQuery();
+                // récupération du joueur sélectionné
+                Joueurs j = (Joueurs)ListBoxJoueurs.SelectedItem;
 
-                    // suppression de la ListBox et réinitialisation des Textbox
-                    ListBoxJoueurs.Items.Remove(ListBoxJoueurs.SelectedItem);
-                    textBoxNom.Text = "";
-                    textBoxSalaire.Text = "";
+                // suppression du joueur de la base
+                string delete = "delete from JOUEURS where ID_JOUEUR = " + j.getId().ToString();
+                OleDbCommand cmd = new OleDbCommand(delete, dbCon);
+                cmd.ExecuteNonQuery();
+
+                // suppression de la ListBox et réinitialisation des Textbox
+                ListBoxJoueurs.Items.Remove(ListBoxJoueurs.SelectedItem);
+                Rafraichir();
             }
             else PopupErreurOK("Aucun joueur sélectionné dans la liste !", "Erreur");
         }
@@ -133,10 +141,10 @@ namespace WindowsFormsApp_GestionJoueurs
                         Joueurs j = (Joueurs)ListBoxJoueurs.SelectedItem;
 
                         // modification du joueur dans la base
-                        string delete = "update JOUEURS " +
+                        string update = "update JOUEURS " +
                             " set NOM = '" + textBoxNom.Text + "',  SALAIRE = '" + s +
-                            "' WHERE ID_JOUEUR = " + textBoxSalaire.Text;
-                        OleDbCommand cmd = new OleDbCommand(delete, dbCon);
+                            "' WHERE ID_JOUEUR = " + j.getId();
+                        OleDbCommand cmd = new OleDbCommand(update, dbCon);
                         cmd.ExecuteNonQuery();
 
                         // mise à jour du joueur et de la ListBox
@@ -157,7 +165,6 @@ namespace WindowsFormsApp_GestionJoueurs
         {
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             MessageBox.Show(message, caption, buttons);
-
         }
 
     }

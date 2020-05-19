@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace EF_MAJ_CHAMPIONNAT
 {
-    class MyEquipe
+    public partial class EQUIPES
     {
-        public EQUIPES me { get; set; }
-        public MyEquipe(EQUIPES e)
-        {
-            me = e;
-        }
         public override string ToString()
         {
-            return me.VILLE;
+            return VILLE;
         }
 
     }

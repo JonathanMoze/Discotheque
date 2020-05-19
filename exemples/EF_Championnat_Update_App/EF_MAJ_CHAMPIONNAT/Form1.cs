@@ -15,18 +15,17 @@ namespace EF_MAJ_CHAMPIONNAT
     {
         CHAMPIONNATEntities championnat;
 
-
         public Form1()
         {
             InitializeComponent();
             // initialisation contrôles
+            championnat = new CHAMPIONNATEntities();
             ChargeListBoxJOUEURS();
             ChargeComboBoxEQUIPES();
         }
 
         private void ChargeListBoxJOUEURS()
         {
-            championnat = new CHAMPIONNATEntities();
             // on récupère tous les joueurs
             var joueurs = (from j in championnat.JOUEURS
                               orderby j.NOM
@@ -36,10 +35,8 @@ namespace EF_MAJ_CHAMPIONNAT
             // création des objets locaux et remplissage de la listbox
             foreach (JOUEURS j in joueurs)
             {
-                MyJoueur jj = new MyJoueur(j);
-                listBoxJOUEURS.Items.Add(jj);
+                listBoxJOUEURS.Items.Add(j);
             }
-
         }
 
         private void ChargeComboBoxEQUIPES()
@@ -50,8 +47,7 @@ namespace EF_MAJ_CHAMPIONNAT
                            select e).ToList();
             foreach (EQUIPES e in equipes)
             {
-                MyEquipe ee = new MyEquipe(e);
-                comboBoxEquipe.Items.Add(ee.me.VILLE);
+                comboBoxEquipe.Items.Add(e);
             }
         }
 
@@ -64,31 +60,15 @@ namespace EF_MAJ_CHAMPIONNAT
         private void listBoxJOUEURS_SelectedIndexChanged(object sender, EventArgs e)
         {
             // que si la sélection vient de l'utilisateur, pas si "désélectionné" par programme
+            // évite aussi le click en dehors d'un joueur...
             if (listBoxJOUEURS.SelectedIndex != -1)
             {
                 // on récupère le joueur sélectionné et on met à jour les trois contrôles
-                MyJoueur j = (MyJoueur)listBoxJOUEURS.SelectedItem;
-                textBoxNom.Text = j.me.NOM;
-                textBoxSalaire.Text = j.me.SALAIRE.ToString();
-                comboBoxEquipe.SelectedIndex = comboBoxEquipe.Items.IndexOf(j.me.EQUIPES.VILLE);
+                JOUEURS j = (JOUEURS)listBoxJOUEURS.SelectedItem;
+                textBoxNom.Text = j.NOM;
+                textBoxSalaire.Text = j.SALAIRE.ToString();
+                comboBoxEquipe.SelectedIndex = comboBoxEquipe.Items.IndexOf(j.EQUIPES);
             }
-        }
-
-        private void boutonSupprimer_Click(object sender, EventArgs e)
-        {
-            // joueur sélectionné ?
-            if (listBoxJOUEURS.SelectedItem != null)
-            {
-                // on récupère le joueur sélectionné et on le supprime
-                MyJoueur j = (MyJoueur)listBoxJOUEURS.SelectedItem;
-                championnat.JOUEURS.Remove(j.me);
-                championnat.SaveChanges();
-                // mise à jour de la listBoxJOUEURS
-                listBoxJOUEURS.Items.Remove(listBoxJOUEURS.SelectedItem);
-                // rafraîchissement
-                Rafraîchir();
-            }
-            else PopupErreurOK("Aucun joueur sélectioné", "Erreur");
         }
 
 
@@ -105,10 +85,8 @@ namespace EF_MAJ_CHAMPIONNAT
                     j.NOM = textBoxNom.Text.Substring(0, Math.Min(textBoxNom.Text.Length, 32));
                     j.SALAIRE = s;
                     // on récupère l'ID de l'équipe
-                    var IdEquipe = (from eq in championnat.EQUIPES
-                                    where eq.VILLE == comboBoxEquipe.Text
-                                    select eq.ID_EQUIPE);
-                    j.ID_EQUIPE = IdEquipe.First();
+                    EQUIPES ee = (EQUIPES)comboBoxEquipe.SelectedItem;
+                    j.ID_EQUIPE = ee.ID_EQUIPE;
                     // ajout du nouveau joueur
                     championnat.JOUEURS.Add(j);
                     championnat.SaveChanges();
@@ -117,7 +95,7 @@ namespace EF_MAJ_CHAMPIONNAT
                     var joueurCréé = (from jc in championnat.JOUEURS
                                       where jc.NOM == j.NOM && jc.SALAIRE == j.SALAIRE && jc.ID_EQUIPE == j.ID_EQUIPE
                                       select jc).ToList();
-                    MyJoueur jj = new MyJoueur(joueurCréé.First());
+                    JOUEURS jj = joueurCréé.First();
 
                     // mise à jour de la listbox et rafraîchissement
                     listBoxJOUEURS.Items.Add(jj);
@@ -142,6 +120,22 @@ namespace EF_MAJ_CHAMPIONNAT
             Rafraîchir();
         }
 
+        private void boutonSupprimer_Click(object sender, EventArgs e)
+        {
+            if (listBoxJOUEURS.SelectedItem != null)
+            {
+                // on récupère le joueur sélectionné et on le supprime
+                JOUEURS j = (JOUEURS)listBoxJOUEURS.SelectedItem;
+                championnat.JOUEURS.Remove(j);
+                championnat.SaveChanges();
+                // mise à jour de la listBoxJOUEURS
+                listBoxJOUEURS.Items.Remove(listBoxJOUEURS.SelectedItem);
+                // rafraîchissement
+                Rafraîchir();
+            }
+            else PopupErreurOK("Aucun joueur sélectioné", "Erreur");
+        }
+
         private void boutonModifier_Click(object sender, EventArgs e)
         {
             // joueur sélectionné ?
@@ -151,19 +145,17 @@ namespace EF_MAJ_CHAMPIONNAT
                 if (Int32.TryParse(textBoxSalaire.Text, out int s))
                 {
                     // on récupère le joueur sélectionné et on le modifie
-                    MyJoueur jj = (MyJoueur)listBoxJOUEURS.SelectedItem;
-                    jj.me.NOM = textBoxNom.Text.Substring(0, Math.Min(textBoxNom.Text.Length, 32));
-                    jj.me.SALAIRE = s;
+                    JOUEURS j = (JOUEURS)listBoxJOUEURS.SelectedItem;
+                    j.NOM = textBoxNom.Text.Substring(0, Math.Min(textBoxNom.Text.Length, 32));
+                    j.SALAIRE = s;
                     // on récupère l'ID de l'équipe
-                    var IdEquipe = (from eq in championnat.EQUIPES
-                                    where eq.VILLE == comboBoxEquipe.Text
-                                    select eq.ID_EQUIPE);
-                    jj.me.ID_EQUIPE = IdEquipe.First();
+                    EQUIPES ee = (EQUIPES)comboBoxEquipe.SelectedItem;
+                    j.ID_EQUIPE = ee.ID_EQUIPE;
                     championnat.SaveChanges();
                     // On met à jour listBoxJOUEURS: suppression, rajout et sélectionné
                     listBoxJOUEURS.Items.Remove(listBoxJOUEURS.SelectedItem);
-                    listBoxJOUEURS.Items.Add(jj);
-                    listBoxJOUEURS.SelectedIndex = listBoxJOUEURS.Items.IndexOf(jj);                    
+                    listBoxJOUEURS.Items.Add(j);
+                    listBoxJOUEURS.SelectedIndex = listBoxJOUEURS.Items.IndexOf(j);
                 }
                 else PopupErreurOK("Le salaire doit être un nombre", "Erreur");
             }
@@ -174,7 +166,6 @@ namespace EF_MAJ_CHAMPIONNAT
         {
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             MessageBox.Show(message, caption, buttons);
-
         }
 
     }
