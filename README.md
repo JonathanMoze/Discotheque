@@ -15,9 +15,23 @@ https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/2020-04-
 - lancer `import project`,
 - vous avez votre copie personnelle du dépôt.
 
+# Mise en place de l'environnement technique
+
+Vous devez installer le même environnement technique que pour le module `M2016 BD`
+(voir https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd/-/blob/master/README.md).
+En particulier on vous demande d'installer `SQL Server`, `SSMS` et `Visual Studio`. On vous recommande les versions suivantes :
+- `SQL Server 2019` : https://www.microsoft.com/fr-fr/sql-server/sql-server-downloads .
+- `SSMS 18.04` : https://docs.microsoft.com/fr-fr/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15 .
+- `Visual Studio 2019` : https://visualstudio.microsoft.com/fr/downloads/ .
+
+***Note 1*** Concertez-vous dans votre équipe afin de disposer de la même version de `Visual Studio`, du framework `.NET` et du module `Entity Framework`.
+
+***Note 2*** Pour `Visual Studio`, il est possible après 30 jours d'utilisation, que le logiciel vous demande de mettre à jour votre licence. Il suffit normalement, dans le menu `aide / enregistrer le produit`, de donner votre compte `Microsoft` (à créer si nécessaire).
+
 # Organisation en équipes
 
 Vous disposez d'un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommés sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affectés dans les canaux texte/audio correspondant à votre équipe.
+Vous devez également vous inscrire dans vos équipes sur le cours Moodle de méthodes agiles, cela vous permettra en particulier d'obtenir les consignes pour les rétrospectives et de réaliser un certain nombre de remises.
 
 # Utilisation de Gitlab pour gérer son projet
 
@@ -42,15 +56,16 @@ puis exécuter `GitLab_Extension_for_Visual_Studio_v1.0.189.vsix`,
 
 ## Définir et affecter une `issue` (ou `user-story`)
 
-Si la tâche ne vous a pas encore été attribuée, rendez-vous dans la section `issues` et assignez-vous une `issue` ayant pour label `ToDo`. Les `issues` sont en fait des tâches à faire, elles peuvent être attribuées à une ou plusieurs personnes. Par défaut, nous avons les labels : `Open`, `ToDo`, `Doing`, `Closed`.
+Lorsque vous vous apprêtez à prendre une nouvelle tâche (une `issue`), rendez-vous dans la section `issues` et assignez-vous une `issue` de la liste `ToDo`. Les `issues` sont en fait des tâches à faire, elles peuvent être attribuées à une ou plusieurs personnes. Par défaut, vous avez les listes : `Open`, `ToDo`, `Doing`, `Closed`.
 
 Vous pouvez aussi regrouper les `issues` par jalons (ou `milestones`), qui peuvent représenter par exemple des sprints dans une méthodologie agile. Le jalon est terminé lorsque toutes ses `issues` sont `Closed`.
 
-***Note*** : Sous la présentation Gitlab `Board`, on peut déplacer facilement les différentes issues en fonction de leur état d’avancement.
+***Note 1*** : Sous la présentation Gitlab `Board`, on peut déplacer facilement les différentes issues en fonction de leur état d’avancement.
+***Note 2*** : Vous trouverez sur Moodle quelques conseils à suivre lorsque vous vous apprêtez à prendre une nouvelle `issue` dans le board, appuyez-vous sur ces consignes.
 
 ## Créer une `merge request` pour débuter votre contribution
 
-Une fois assigné, glissez l’`issue` vers le label `Doing`. Ouvrez ensuite l’`issue` puis cliquez sur `Create Merge Request`. Cette action va créer automatiquement une `merge-request` avec le statut `WIP` (Work In Progress). La branche de travail associée à cette dernière est également créée.
+Une fois assigné, glissez l’`issue` vers la liste `Doing`. Ouvrez ensuite l’`issue` puis cliquez sur `Create Merge Request`. Cette action va créer automatiquement une `merge-request` avec le statut `WIP` (Work In Progress). La branche de travail associée à cette dernière est également créée.
 Dans votre environnement de développement, pensez à faire un `git pull` pour être sûr d’être à jour. La nouvelle branche que vous venez de créer a été synchronisée. Basculez sur cette branche avec un `git switch` (ou `git checkout` si votre `git` n'est pas suffisamment récent).
 
 ***Depuis `Visual Studio`*** :
@@ -99,6 +114,8 @@ Vous trouverez également deux fichiers cachés à la racine de ce dépôt :
 - `.gitlab-ci.yml` : pour mettre en place un pipeline d'intégration continue minimal.
 
 ## Estimation du temps d'une `issue`
+
+***Ceci est facultatif*** : ceux qui le souhaitent peuvent essayer, vous en tirerez une expérience intéressante !
 
 Il est possible de saisir des estimations du temps passé sur une `issue` en écrivant dans le champs commentaire :
 - /estimate \<temps\> : pour ajouter une estimation
