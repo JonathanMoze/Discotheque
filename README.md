@@ -27,6 +27,10 @@ En particulier on vous demande d'installer `SQL Server`, `SSMS` et `Visual Studi
 
 ***Note 2*** Pour `Visual Studio`, il est possible après 30 jours d'utilisation, que le logiciel vous demande de mettre à jour votre licence. Il suffit normalement, dans le menu `aide / enregistrer le produit`, de donner votre compte `Microsoft` (à créer si nécessaire).
 
+Vous allez travailler sur la base `MusiqueSQL` utilisée dans le module `M2106 BD`. La procédure pour récupérer cette base est rappelée ici : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/README.md . Dans le cadre de ce projet, vous n'aurez à considérer que la partie suivante du schéma relationnel :
+
+![schema](schema.jpg)
+
 # Organisation en équipes
 
 Vous disposez d'un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommés sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affectés dans les canaux texte/audio correspondant à votre équipe.
