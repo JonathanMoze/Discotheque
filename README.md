@@ -23,18 +23,18 @@ En particulier on vous demande d'installer `SQL Server`, `SSMS` et `Visual Studi
 - `SSMS 18.04` : https://docs.microsoft.com/fr-fr/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15 .
 - `Visual Studio 2019` : https://visualstudio.microsoft.com/fr/downloads/ .
 
-***Note 1*** Concertez-vous dans votre équipe afin de disposer de la même version de `Visual Studio`, du framework `.NET` et du module `Entity Framework`.
+***Note 1*** : Concertez-vous dans votre équipe afin de disposer de la même version de `Visual Studio`, du framework `.NET` et du module `Entity Framework`.
 
-***Note 2*** Pour `Visual Studio`, il est possible après 30 jours d'utilisation, que le logiciel vous demande de mettre à jour votre licence. Il suffit normalement, dans le menu `aide / enregistrer le produit`, de donner votre compte `Microsoft` (à créer si nécessaire).
+***Note 2*** : Pour `Visual Studio`, il est possible après 30 jours d'utilisation, que le logiciel vous demande de mettre à jour votre licence. Il suffit normalement, dans le menu `aide / enregistrer le produit`, de donner votre compte `Microsoft` (à créer si nécessaire).
 
-Vous allez travailler sur la base `MusiqueSQL` utilisée dans le module `M2106 BD`. La procédure pour récupérer cette base est rappelée ici : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/README.md . Dans le cadre de ce projet, vous n'aurez à considérer que la partie suivante du schéma relationnel :
+Vous allez travailler sur la base `MusiqueSQL` utilisée dans le module `M2106 BD`. La procédure pour récupérer cette base est rappelée ici : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/databases/README.md . Dans le cadre de ce projet, une partie du schéma relationnel suivant devrait suffire :
 
 ![schema](schema.jpg)
 
 # Organisation en équipes
 
 Vous disposez d'un serveur `Discord` pour le module "M2204/M2106 - Méthodes Agiles et Bases de Données". Une fois que vous serez nommés sous le format "GxEy Nom Prénom" (avec `x` votre groupe et `y` votre numéro d'équipe dans le groupe) vous serez automatiquement affectés dans les canaux texte/audio correspondant à votre équipe.
-Vous devez également vous inscrire dans vos équipes sur le cours Moodle de méthodes agiles, cela vous permettra en particulier d'obtenir les consignes pour les rétrospectives et de réaliser un certain nombre de remises.
+Vous devez également vous inscrire dans vos équipes sur le cours Moodle de méthodes agiles, cela vous permettra en particulier d'obtenir les consignes pour les rétrospectives et de réaliser un certain nombre de remises. Un glossaire `SCRUM` est disponible ici : https://gitlab-ce.iut.u-bordeaux.fr/Pierre/m2106_bd_agile/-/blob/master/supports/SCRUM.pdf
 
 # Utilisation de Gitlab pour gérer son projet
 
@@ -91,7 +91,7 @@ Puis, cliquez sur `Resolve Wip Status` afin de montrer que le travail est termin
 Prenez en compte les retours proposés par vos relecteurs. Pensez à fermer les discussions pour chaque commentaire lorsque vous avez résolu le problème.
 Si tout s’est bien passé, votre relecteur se chargera de faire le `Merge` final de votre branche. L'`issue`sera automatiquement fermée (`Closed`).
 
-***Note*** Vous pouvez mentionner une `issue` dans le message associé à vos `commit` pour y faire référence. Un message `fix issue #xxx` (avec `xxx` le numéro de l'`issue`) fermera automatiquement cette `issue`. Vous pouvez également faire référence à une autre `merge-request` avec un message contenant `#yyy` (avec `yyy` le numéro de la `merge-request`).
+***Note*** : Vous pouvez mentionner une `issue` dans le message associé à vos `commit` pour y faire référence. Un message `fix issue #xxx` (avec `xxx` le numéro de l'`issue`) fermera automatiquement cette `issue`. Vous pouvez également faire référence à une autre `merge-request` avec un message contenant `#yyy` (avec `yyy` le numéro de la `merge-request`).
 
 ## En tant que relecteur
 
@@ -156,7 +156,7 @@ en supposant que le fichier de configuration de l'application (`App.config` à l
 </configuration>
 ```
 
-***Note*** C'est également dans ce fichier de configuration que vous allez retrouver votre version du framework `.NET` (on vous recommande d'utiliser la même version).
+***Note*** : C'est également dans ce fichier de configuration que vous allez retrouver votre version du framework `.NET` (on vous recommande d'utiliser la même version).
 
 Pour finir, il est nécessaire d'ignorer ce fichier (`App.config`) lors des futurs `commits`.
 - Soit vous avez ignoré ce fichier depuis le début en l'ajoutant dans le fichier `.gitignore` du projet.
