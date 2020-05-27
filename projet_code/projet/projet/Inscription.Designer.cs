@@ -39,6 +39,7 @@
             this.textBoxMDP = new System.Windows.Forms.TextBox();
             this.comboBoxPays = new System.Windows.Forms.ComboBox();
             this.button_inscription = new System.Windows.Forms.Button();
+            this.labelMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nom
@@ -132,11 +133,21 @@
             this.button_inscription.UseVisualStyleBackColor = true;
             this.button_inscription.Click += new System.EventHandler(this.button_inscription_Click);
             // 
+            // labelMessage
+            // 
+            this.labelMessage.AutoSize = true;
+            this.labelMessage.Location = new System.Drawing.Point(126, 245);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(198, 13);
+            this.labelMessage.TabIndex = 11;
+            this.labelMessage.Text = "Veuillez remplir les informations ci-dessus";
+            // 
             // Inscription
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.button_inscription);
             this.Controls.Add(this.comboBoxPays);
             this.Controls.Add(this.textBoxMDP);
@@ -168,5 +179,6 @@
         private System.Windows.Forms.TextBox textBoxMDP;
         private System.Windows.Forms.ComboBox comboBoxPays;
         private System.Windows.Forms.Button button_inscription;
+        private System.Windows.Forms.Label labelMessage;
     }
 }
