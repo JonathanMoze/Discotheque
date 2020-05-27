@@ -14,7 +14,7 @@ namespace projet
     {
         public Menu()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
         #region Aller à la page inscription
         //Bouton pour aller à la page pour inscrire un abonné
