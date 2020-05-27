@@ -32,5 +32,9 @@ namespace projet
         {
             return Nom_Pays;
         }
+        public override int GetHashCode()
+        {
+            return Code_Pays;
+        }
     }
 }

@@ -130,6 +130,7 @@
             this.button_inscription.TabIndex = 10;
             this.button_inscription.Text = "Inscription";
             this.button_inscription.UseVisualStyleBackColor = true;
+            this.button_inscription.Click += new System.EventHandler(this.button_inscription_Click);
             // 
             // Inscription
             // 

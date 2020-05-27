@@ -15,6 +15,8 @@ namespace projet
         public Form1()
         {
             InitializeComponent();
+            Inscription i = new Inscription();
+            i.Show();
         }
     }
 }
