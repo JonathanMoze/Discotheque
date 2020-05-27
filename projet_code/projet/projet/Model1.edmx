@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MusiqueSQLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MusiqueSQLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Abonné">
           <Key>
             <PropertyRef Name="Code_Abonné" />
@@ -44,6 +44,7 @@
           <Property Name="Code_Abonné" Type="int" Nullable="false" />
           <Property Name="Code_Album" Type="int" Nullable="false" />
           <Property Name="Date_Emprunt" Type="datetime" />
+          <Property Name="Date_Retour" Type="datetime" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -163,8 +164,7 @@
             <End Role="Emprunter" EntitySet="Emprunter" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MusiqueSQLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -216,6 +216,7 @@
           <Property Name="Date_Emprunt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Abonné" Relationship="Self.Emprunter_FK00" FromRole="Emprunter" ToRole="Abonné" />
           <NavigationProperty Name="Album" Relationship="Self.Emprunter_FK01" FromRole="Emprunter" ToRole="Album" />
+          <Property Name="Date_Retour" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -381,6 +382,7 @@
           <EntitySetMapping Name="Emprunter">
             <EntityTypeMapping TypeName="MusiqueSQLModel.Emprunter">
               <MappingFragment StoreEntitySet="Emprunter">
+                <ScalarProperty Name="Date_Retour" ColumnName="Date_Retour" />
                 <ScalarProperty Name="Code_Abonné" ColumnName="Code_Abonné" />
                 <ScalarProperty Name="Code_Album" ColumnName="Code_Album" />
                 <ScalarProperty Name="Date_Emprunt" ColumnName="Date_Emprunt" />
