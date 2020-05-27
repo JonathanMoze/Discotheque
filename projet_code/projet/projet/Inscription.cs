@@ -35,8 +35,6 @@ namespace projet
         {
             if (tousChampsRemplis())
             {
-                if (MdpUnique(textBoxMDP.Text) && LoginUnique(textBoxLogin.Text))
-                {
                     Abonné a = new Abonné();
                     a.Nom_Abonné = textBoxNom.Text;
                     a.Prénom_Abonné = textBoxPrenom.Text;
@@ -46,7 +44,7 @@ namespace projet
                     musiqueSQL.Abonné.Add(a);
                     musiqueSQL.SaveChanges();
                     labelMessage.Text = "Inscription confirmée";
-                }               
+                              
             }
             else
             {
@@ -61,26 +59,6 @@ namespace projet
                 && textBoxMDP.TextLength != 0 && textBoxLogin.TextLength != 0;
         }
 
-        private bool MdpUnique(string mdp)
-        {
-            bool unique = true;
-            var abonne = (from a in musiqueSQL.Abonné
-                          orderby a.Code_Abonné
-                          select a).ToList();
-            foreach (Abonné a in abonne)
-            {
-                if (unique)
-                {
-                    unique = mdp != a.Password;
-                }
-            }
-            if (!unique)
-            {
-                labelMessage.Text = "Le mot de passe choisi n'est pas disponible";
-                labelMessage.ForeColor = Color.Red;
-            }
-            return unique;
-        }
 
         private bool LoginUnique(string login)
         {
