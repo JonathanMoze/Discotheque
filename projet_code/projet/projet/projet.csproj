@@ -76,6 +76,12 @@
     <Compile Include="Genre.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Inscription.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inscription.Designer.cs">
+      <DependentUpon>Inscription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
