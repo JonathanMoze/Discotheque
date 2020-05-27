@@ -38,6 +38,7 @@
             this.textBoxLogin = new System.Windows.Forms.TextBox();
             this.textBoxMDP = new System.Windows.Forms.TextBox();
             this.comboBoxPays = new System.Windows.Forms.ComboBox();
+            this.button_inscription = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // nom
@@ -121,11 +122,21 @@
             this.comboBoxPays.Size = new System.Drawing.Size(121, 21);
             this.comboBoxPays.TabIndex = 9;
             // 
+            // button_inscription
+            // 
+            this.button_inscription.Location = new System.Drawing.Point(126, 264);
+            this.button_inscription.Name = "button_inscription";
+            this.button_inscription.Size = new System.Drawing.Size(109, 31);
+            this.button_inscription.TabIndex = 10;
+            this.button_inscription.Text = "Inscription";
+            this.button_inscription.UseVisualStyleBackColor = true;
+            // 
             // Inscription
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button_inscription);
             this.Controls.Add(this.comboBoxPays);
             this.Controls.Add(this.textBoxMDP);
             this.Controls.Add(this.textBoxLogin);
@@ -155,5 +166,6 @@
         private System.Windows.Forms.TextBox textBoxLogin;
         private System.Windows.Forms.TextBox textBoxMDP;
         private System.Windows.Forms.ComboBox comboBoxPays;
+        private System.Windows.Forms.Button button_inscription;
     }
 }
