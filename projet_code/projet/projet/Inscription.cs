@@ -43,7 +43,7 @@ namespace projet
                     a.Prénom_Abonné = textBoxPrenom.Text;
                     a.Login = textBoxLogin.Text;
                     a.Password = textBoxMDP.Text;
-                    comboBoxPays.SelectedItem.GetHashCode();
+                    a.Code_Pays= comboBoxPays.SelectedItem.GetHashCode();
                     musiqueSQL.Abonné.Add(a);
                     musiqueSQL.SaveChanges();
                     labelMessage.Text = "Inscription confirmée";
