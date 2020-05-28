@@ -55,17 +55,16 @@ namespace projet
             {
                 AlbSelection = (Album)listBox1.SelectedItem;
             }
-            if (Login.Text != null)
-            {
-                {
+            if (Login.Text != "")
+            {                
                     var abonné = (from a in musique.Abonné
                                   where a.Login == Login.Text
                                   select a).ToList();
                     abn = abonné.First();
-                }
+                
                 Console.WriteLine(AlbSelection.Titre_Album);
                 // Création d'emprunt
-                if (listBox1.SelectedItem != null && Login.Text != null)
+                if (listBox1.SelectedItem != null && Login.Text != "")
                 {
                     Emprunter E = new Emprunter()
                     {
@@ -79,10 +78,12 @@ namespace projet
                         musique.SaveChanges();
 
                         Console.WriteLine("Emprunt OK");
+                        label5.Text = "Emprunt OK";
                     }
                     catch
                     {
                         Console.WriteLine("Erreur !");
+                        label5.Text = "Erreur !";
                     }
                 }
                 #endregion

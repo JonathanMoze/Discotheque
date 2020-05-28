@@ -40,6 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBox1
@@ -149,11 +150,21 @@
             this.labelMessage.TabIndex = 12;
             this.labelMessage.Text = "Veuillez entrer votre login et choisir un album dans la liste";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(353, 333);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(10, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = " ";
+            // 
             // Emprunt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 421);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -187,5 +198,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelMessage;
+        private System.Windows.Forms.Label label5;
     }
 }
