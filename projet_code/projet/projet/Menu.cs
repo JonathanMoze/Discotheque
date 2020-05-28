@@ -42,6 +42,17 @@ namespace projet
         }
         #endregion
 
-
+        #region Aller à la page MesEmrpunts
+        //Bouton pour aller à la page pour voir les albums empruntés
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new System.Threading.Thread(new System.Threading.ThreadStart(runMesEmprunts)).Start();
+            this.Close();
+        }
+        private void runMesEmprunts()
+        {
+            Application.Run(new MesEmprunts());
+        }
+        #endregion
     }
 }
