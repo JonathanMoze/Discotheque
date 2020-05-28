@@ -28,5 +28,17 @@ namespace projet
         public virtual ICollection<Abonné> Abonné { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Editeur> Editeur { get; set; }
+
+        public override string ToString()
+        {
+            return Nom_Pays;
+        }
+        public override int GetHashCode()
+        {
+            return Code_Pays;
+        }
+
+
     }
+
 }
