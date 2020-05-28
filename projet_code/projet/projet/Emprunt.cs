@@ -50,47 +50,57 @@ namespace projet
         {
             #region Récuperation de l'album et l'abonné
             Abonné abn = new Abonné();
+            abn.Login = "temp";
             Album AlbSelection = new Album();
             if (listBox1.SelectedItem != null)
             {
                 AlbSelection = (Album)listBox1.SelectedItem;
             }
-            if (Login.Text != "")
-            {                
-                    var abonné = (from a in musique.Abonné
-                                  where a.Login == Login.Text
-                                  select a).ToList();
-                    abn = abonné.First();
-                
-                Console.WriteLine(AlbSelection.Titre_Album);
-                // Création d'emprunt
-                if (listBox1.SelectedItem != null && Login.Text != "")
+            var abonnés = (from a in musique.Abonné
+                           orderby a.Login
+                           select a).ToList();
+
+            // Remplir la listbox
+            foreach (Abonné a in abonnés)
+            {
+                if (Login.Text == a.Login)
                 {
-                    Emprunter E = new Emprunter()
-                    {
-                        Code_Abonné = abn.Code_Abonné,
-                        Code_Album = AlbSelection.Code_Album,
-                        Date_Emprunt = DateTime.Now
-                    };
-                    musique.Emprunter.Add(E);
-                    try
-                    {
-                        musique.SaveChanges();
-
-                        Console.WriteLine("Emprunt OK");
-                        label5.Text = "Emprunt OK";
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Erreur !");
-                        label5.Text = "Erreur !";
-                    }
+                    var abonné = (from ab in musique.Abonné
+                                  where ab.Login == Login.Text
+                                  select ab).ToList();
+                    abn = abonné.First();
                 }
-                #endregion
-
+                else
+                {
+                    label5.Text = "Entrez un login valide";
+                    label5.ForeColor = Color.Red;
+                }
             }
+            // Création d'emprunt
+            if (listBox1.SelectedItem != null && abn.Login != "temp")
+            {
+                Emprunter E = new Emprunter()
+                {
+                    Code_Abonné = abn.Code_Abonné,
+                    Code_Album = AlbSelection.Code_Album,
+                    Date_Emprunt = DateTime.Now
+                };
+                musique.Emprunter.Add(E);
+                try
+                {
+                    musique.SaveChanges();
 
+                    label5.Text = "Emprunt OK";
+                }
+                catch
+                {
+                    label5.Text = "Erreur !";
+                }
+            }
+            #endregion
         }
+
+    
         /* Barre de recherche */
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -121,6 +131,31 @@ namespace projet
         private void runMenu()
         {
             Application.Run(new Menu());
+        }
+        #endregion
+
+        #region Aller à la page MesEmrpunts
+        //Bouton pour aller à la page pour voir les albums empruntés
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new System.Threading.Thread(new System.Threading.ThreadStart(runMesEmprunts)).Start();
+            this.Close();
+        }
+        private void runMesEmprunts()
+        {
+            Application.Run(new MesEmprunts());
+        }
+        #endregion
+        #region Aller à la page inscription
+        //Bouton pour aller à la page pour inscrire un abonné
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new System.Threading.Thread(new System.Threading.ThreadStart(runInscription)).Start();
+            this.Close();
+        }
+        private void runInscription()
+        {
+            Application.Run(new Inscription());
         }
         #endregion
     }

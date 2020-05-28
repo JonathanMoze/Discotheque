@@ -62,5 +62,17 @@ namespace projet
             Application.Run(new Menu());
         }
         #endregion
+        #region Aller à la page emprunter
+        //Bouton pour aller à la page pour emprunter un album
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new System.Threading.Thread(new System.Threading.ThreadStart(runEmprunt)).Start();
+            this.Close();
+        }
+        private void runEmprunt()
+        {
+            Application.Run(new Emprunt());
+        }
+        #endregion
     }
 }
