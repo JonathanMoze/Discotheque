@@ -46,56 +46,50 @@ namespace projet
             titreAlbum.Text = a.ToString();
             #endregion
         }
-
         private void button1_Click(object sender, EventArgs e)
-        { 
+        {
             #region Récuperation de l'album et l'abonné
-
-            Album AlbSelection = new Album();
             Abonné abn = new Abonné();
+            Album AlbSelection = new Album();
+            if (listBox1.SelectedItem != null)
+            {
+                AlbSelection = (Album)listBox1.SelectedItem;
+            }
             if (Login.Text != null)
             {
-                var Selection = (from t in musique.Album
-                          .Where(t => t.Titre_Album.Contains(titreAlbum.Text))
-                                 orderby t.Titre_Album
-                                 select t);
-                AlbSelection = Selection.First();
-            }
-                if (Login.Text != "Login")
                 {
+                    var abonné = (from a in musique.Abonné
+                                  where a.Login == Login.Text
+                                  select a).ToList();
+                    abn = abonné.First();
+                }
+                Console.WriteLine(AlbSelection.Titre_Album);
+                // Création d'emprunt
+                if (listBox1.SelectedItem != null && Login.Text != null)
+                {
+                    Emprunter E = new Emprunter()
                     {
-                        var abonné = (from a in musique.Abonné
-                                      where a.Login == Login.Text
-                                      select a).ToList();
-                        abn = abonné.First();
-                    }
-                    Console.WriteLine(AlbSelection.Titre_Album);
-                    // Création d'emprunt
-                    if (listBox1.SelectedItem != null && Login.Text != "Login")
+                        Code_Abonné = abn.Code_Abonné,
+                        Code_Album = AlbSelection.Code_Album,
+                        Date_Emprunt = DateTime.Now
+                    };
+                    musique.Emprunter.Add(E);
+                    try
                     {
-                        Emprunter E = new Emprunter()
-                        {
-                            Code_Abonné = abn.Code_Abonné,
-                            Code_Album = AlbSelection.Code_Album,
-                            Date_Emprunt = DateTime.Now
-                        };
-                        musique.Emprunter.Add(E);
-                        try
-                        {
-                            musique.SaveChanges();
+                        musique.SaveChanges();
 
-                            Console.WriteLine("Emprunt OK");
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Erreur !");
-                        }
+                        Console.WriteLine("Emprunt OK");
                     }
-                    #endregion
-                
+                    catch
+                    {
+                        Console.WriteLine("Erreur !");
+                    }
+                }
+                #endregion
+
             }
-        }
 
+        }
         /* Barre de recherche */
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
