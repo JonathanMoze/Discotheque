@@ -59,6 +59,7 @@
             this.retardsEmprunts.TabIndex = 2;
             this.retardsEmprunts.Text = "Gérer les emprunts non rapportés";
             this.retardsEmprunts.UseVisualStyleBackColor = true;
+            this.retardsEmprunts.Click += new System.EventHandler(this.retardsEmprunts_Click);
             // 
             // MenuAdmin
             // 

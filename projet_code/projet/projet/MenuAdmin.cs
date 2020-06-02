@@ -16,5 +16,16 @@ namespace projet
         {
             InitializeComponent();
         }
+
+        private void retardsEmprunts_Click(object sender, EventArgs e)
+        {
+            new System.Threading.Thread(new System.Threading.ThreadStart(runRetards)).Start();
+            this.Close();
+        }
+
+        private void runRetards()
+        {
+            Application.Run(new Retards());
+        }
     }
 }
