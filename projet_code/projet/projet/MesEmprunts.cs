@@ -21,6 +21,7 @@ namespace projet
             abn = new Abonné();
             musiqueSQL = new MusiqueSQLEntities();
             buttonProlonger.Enabled = checkBoxEmprunt.Checked && listAlbums.SelectedItem!=null;
+            buttonPrologerAll.Enabled = checkBoxEmprunt.Checked;
             checkBoxEmprunt.Enabled = abn==null;
         }
 
@@ -122,7 +123,7 @@ namespace projet
 
             }
             buttonProlonger.Enabled = checkBoxEmprunt.Checked && listAlbums.SelectedItem != null;
-
+            buttonPrologerAll.Enabled = checkBoxEmprunt.Checked;
             chargerListeAlbum();
 
         }
@@ -130,6 +131,27 @@ namespace projet
         private void listAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonProlonger.Enabled = checkBoxEmprunt.Checked && listAlbums.SelectedItem != null;
+        }
+
+        private void buttonPrologerAll_Click(object sender, EventArgs e)
+        {
+            var emprunts = (from em in musiqueSQL.Emprunter
+                            where em.Code_Abonné == abn.Code_Abonné
+                            select em).ToList();
+            List<Emprunter> list = new List<Emprunter>();
+            foreach (Emprunter emp in emprunts)
+            {
+                if (emp.Date_Retour == null)
+                {
+                    list.Add(emp);
+                }
+            }
+            foreach (Emprunter emp in list)
+            {
+                emp.Date_Emprunt = System.DateTime.Now;
+                musiqueSQL.Emprunter.AddOrUpdate(emp);
+            }
+            musiqueSQL.SaveChanges();
         }
     }
 }

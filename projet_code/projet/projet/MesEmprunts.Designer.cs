@@ -39,6 +39,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.buttonProlonger = new System.Windows.Forms.Button();
             this.checkBoxEmprunt = new System.Windows.Forms.CheckBox();
+            this.buttonPrologerAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // PassBox
@@ -61,7 +62,7 @@
             // 
             // buttonConnexion
             // 
-            this.buttonConnexion.Location = new System.Drawing.Point(83, 250);
+            this.buttonConnexion.Location = new System.Drawing.Point(86, 270);
             this.buttonConnexion.Margin = new System.Windows.Forms.Padding(2);
             this.buttonConnexion.Name = "buttonConnexion";
             this.buttonConnexion.Size = new System.Drawing.Size(77, 20);
@@ -131,7 +132,7 @@
             // 
             // buttonProlonger
             // 
-            this.buttonProlonger.Location = new System.Drawing.Point(83, 295);
+            this.buttonProlonger.Location = new System.Drawing.Point(86, 295);
             this.buttonProlonger.Name = "buttonProlonger";
             this.buttonProlonger.Size = new System.Drawing.Size(77, 23);
             this.buttonProlonger.TabIndex = 16;
@@ -150,11 +151,22 @@
             this.checkBoxEmprunt.UseVisualStyleBackColor = true;
             this.checkBoxEmprunt.CheckedChanged += new System.EventHandler(this.checkBoxEmprunt_CheckedChanged);
             // 
+            // buttonPrologerAll
+            // 
+            this.buttonPrologerAll.Location = new System.Drawing.Point(86, 324);
+            this.buttonPrologerAll.Name = "buttonPrologerAll";
+            this.buttonPrologerAll.Size = new System.Drawing.Size(77, 35);
+            this.buttonPrologerAll.TabIndex = 18;
+            this.buttonPrologerAll.Text = "Prolonger tout";
+            this.buttonPrologerAll.UseVisualStyleBackColor = true;
+            this.buttonPrologerAll.Click += new System.EventHandler(this.buttonPrologerAll_Click);
+            // 
             // MesEmprunts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(602, 450);
+            this.Controls.Add(this.buttonPrologerAll);
             this.Controls.Add(this.checkBoxEmprunt);
             this.Controls.Add(this.buttonProlonger);
             this.Controls.Add(this.button1);
@@ -186,5 +198,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonProlonger;
         private System.Windows.Forms.CheckBox checkBoxEmprunt;
+        private System.Windows.Forms.Button buttonPrologerAll;
     }
 }
