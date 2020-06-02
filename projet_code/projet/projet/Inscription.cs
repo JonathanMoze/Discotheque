@@ -35,6 +35,8 @@ namespace projet
         {
             if (tousChampsRemplis())
             {
+                if (LoginUnique(textBoxLogin.Text))
+                {
                     Abonné a = new Abonné();
                     a.Nom_Abonné = textBoxNom.Text;
                     a.Prénom_Abonné = textBoxPrenom.Text;
@@ -44,7 +46,7 @@ namespace projet
                     musiqueSQL.Abonné.Add(a);
                     musiqueSQL.SaveChanges();
                     labelMessage.Text = "Inscription confirmée";
-                              
+                }              
             }
             else
             {
