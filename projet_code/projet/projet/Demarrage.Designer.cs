@@ -62,6 +62,7 @@
             this.AboBouton.TabIndex = 2;
             this.AboBouton.Text = "Je suis Abonné";
             this.AboBouton.UseVisualStyleBackColor = true;
+            this.AboBouton.Click += new System.EventHandler(this.AboBouton_Click);
             // 
             // AdminBouton
             // 
@@ -71,6 +72,7 @@
             this.AdminBouton.TabIndex = 3;
             this.AdminBouton.Text = "Je suis Administrateur";
             this.AdminBouton.UseVisualStyleBackColor = true;
+            this.AdminBouton.Click += new System.EventHandler(this.AdminBouton_Click);
             // 
             // Demarrage
             // 
