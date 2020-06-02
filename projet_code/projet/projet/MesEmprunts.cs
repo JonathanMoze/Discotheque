@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,18 +13,20 @@ namespace projet
 {
     public partial class MesEmprunts : Form
     {
-
+        Abonné abn;
         MusiqueSQLEntities musiqueSQL;
         public MesEmprunts()
         {
             InitializeComponent();
+            abn = new Abonné();
             musiqueSQL = new MusiqueSQLEntities();
+            buttonProlonger.Enabled = checkBoxEmprunt.Checked && listAlbums.SelectedItem!=null;
+            checkBoxEmprunt.Enabled = abn==null;
         }
 
         private void buttonConnexion_Click(object sender, EventArgs e)
         {
 
-            Abonné abn = new Abonné();
 
             if (LoginBox.Text != null && PassBox.Text != null)
             {
@@ -34,19 +37,15 @@ namespace projet
 
             }
 
-            chargerListeAlbum(abn);
+            chargerListeAlbum();
+            checkBoxEmprunt.Enabled = abn!=null;
         }
         #region Revenir au menu principal
 
-        private void connexion()
-        {
-            
-        }
-
-        void chargerListeAlbum(Abonné a)
+        void chargerListeAlbum()
         {
             var emprunts = (from em in musiqueSQL.Emprunter
-                            where em.Code_Abonné == a.Code_Abonné
+                            where em.Code_Abonné == abn.Code_Abonné
                             select em).ToList();
             foreach (Emprunter emp in emprunts)
             {
@@ -94,17 +93,25 @@ namespace projet
 
         private void buttonProlonger_Click(object sender, EventArgs e)
         {
-            if (listAlbums.SelectedItem != null)
+            var emprunts = (from em in musiqueSQL.Emprunter
+                            where em.Code_Abonné == abn.Code_Abonné
+                            select em).ToList();
+            Emprunter emprunt = new Emprunter();
+            foreach (Emprunter emp in emprunts)
             {
-                
+                if (emp.Code_Album == listAlbums.SelectedItem.GetHashCode())
+                {
+                    emprunt = emp;
+                }
             }
+            emprunt.Date_Emprunt = System.DateTime.Now;
+            musiqueSQL.Emprunter.AddOrUpdate(emprunt);
+            musiqueSQL.SaveChanges();
         }
 
         private void checkBoxEmprunt_CheckedChanged(object sender, EventArgs e)
         {
-            connexion();
             listAlbums.Items.Clear();
-            Abonné abn = new Abonné();
             if (LoginBox.Text != null && PassBox.Text != null)
             {
                 var abo = (from a in musiqueSQL.Abonné
@@ -113,9 +120,15 @@ namespace projet
                 abn = abo.First();
 
             }
+            buttonProlonger.Enabled = checkBoxEmprunt.Checked && listAlbums.SelectedItem != null;
 
-            chargerListeAlbum(abn);
+            chargerListeAlbum();
 
+        }
+
+        private void listAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonProlonger.Enabled = checkBoxEmprunt.Checked && listAlbums.SelectedItem != null;
         }
     }
 }

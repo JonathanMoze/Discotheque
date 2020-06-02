@@ -78,6 +78,7 @@
             this.listAlbums.Name = "listAlbums";
             this.listAlbums.Size = new System.Drawing.Size(276, 316);
             this.listAlbums.TabIndex = 10;
+            this.listAlbums.SelectedIndexChanged += new System.EventHandler(this.listAlbums_SelectedIndexChanged);
             // 
             // LoginBox
             // 

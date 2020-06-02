@@ -32,5 +32,10 @@ namespace projet
         public virtual Genre Genre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Emprunter> Emprunter { get; set; }
+
+        public override int GetHashCode()
+        {
+            return Code_Album;
+        }
     }
 }
