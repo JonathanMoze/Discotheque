@@ -1,6 +1,6 @@
 ﻿namespace projet
 {
-    partial class Menu
+    partial class MenuAbonné
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
