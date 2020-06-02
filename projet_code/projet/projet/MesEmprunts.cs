@@ -22,6 +22,7 @@ namespace projet
 
         private void buttonConnexion_Click(object sender, EventArgs e)
         {
+
             Abonné abn = new Abonné();
 
             if (LoginBox.Text != null && PassBox.Text != null)
@@ -33,10 +34,20 @@ namespace projet
 
             }
 
-            var emprunts = (from em in musiqueSQL.Emprunter
-                            where em.Code_Abonné == abn.Code_Abonné
-                            select em).ToList();
+            chargerListeAlbum(abn);
+        }
+        #region Revenir au menu principal
 
+        private void connexion()
+        {
+            
+        }
+
+        void chargerListeAlbum(Abonné a)
+        {
+            var emprunts = (from em in musiqueSQL.Emprunter
+                            where em.Code_Abonné == a.Code_Abonné
+                            select em).ToList();
             foreach (Emprunter emp in emprunts)
             {
                 Album album = new Album();
@@ -44,11 +55,17 @@ namespace projet
                               where alb.Code_Album == emp.Code_Album
                               select alb).ToList();
                 album = albums.First();
-                listAlbums.Items.Add(album);
-
+                if (checkBoxEmprunt.Checked && emp.Date_Retour == null)
+                {
+                    listAlbums.Items.Add(album);
+                }
+                else if (!checkBoxEmprunt.Checked)
+                {
+                    listAlbums.Items.Add(album);
+                }
+                
             }
         }
-        #region Revenir au menu principal
         /*Bouton retourner au menu*/
         private void menu_Click(object sender, EventArgs e)
         {
@@ -74,5 +91,31 @@ namespace projet
             Application.Run(new Emprunt());
         }
         #endregion
+
+        private void buttonProlonger_Click(object sender, EventArgs e)
+        {
+            if (listAlbums.SelectedItem != null)
+            {
+                
+            }
+        }
+
+        private void checkBoxEmprunt_CheckedChanged(object sender, EventArgs e)
+        {
+            connexion();
+            listAlbums.Items.Clear();
+            Abonné abn = new Abonné();
+            if (LoginBox.Text != null && PassBox.Text != null)
+            {
+                var abo = (from a in musiqueSQL.Abonné
+                           where a.Login == LoginBox.Text && a.Password == PassBox.Text
+                           select a).ToList();
+                abn = abo.First();
+
+            }
+
+            chargerListeAlbum(abn);
+
+        }
     }
 }

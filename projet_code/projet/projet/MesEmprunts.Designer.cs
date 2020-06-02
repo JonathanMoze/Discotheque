@@ -37,6 +37,8 @@
             this.Titre = new System.Windows.Forms.Label();
             this.menu = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.buttonProlonger = new System.Windows.Forms.Button();
+            this.checkBoxEmprunt = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // PassBox
@@ -71,7 +73,7 @@
             // listAlbums
             // 
             this.listAlbums.FormattingEnabled = true;
-            this.listAlbums.Location = new System.Drawing.Point(274, 101);
+            this.listAlbums.Location = new System.Drawing.Point(275, 76);
             this.listAlbums.Margin = new System.Windows.Forms.Padding(2);
             this.listAlbums.Name = "listAlbums";
             this.listAlbums.Size = new System.Drawing.Size(276, 316);
@@ -126,11 +128,34 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // buttonProlonger
+            // 
+            this.buttonProlonger.Location = new System.Drawing.Point(83, 295);
+            this.buttonProlonger.Name = "buttonProlonger";
+            this.buttonProlonger.Size = new System.Drawing.Size(77, 23);
+            this.buttonProlonger.TabIndex = 16;
+            this.buttonProlonger.Text = "Prolonger";
+            this.buttonProlonger.UseVisualStyleBackColor = true;
+            this.buttonProlonger.Click += new System.EventHandler(this.buttonProlonger_Click);
+            // 
+            // checkBoxEmprunt
+            // 
+            this.checkBoxEmprunt.AutoSize = true;
+            this.checkBoxEmprunt.Location = new System.Drawing.Point(275, 415);
+            this.checkBoxEmprunt.Name = "checkBoxEmprunt";
+            this.checkBoxEmprunt.Size = new System.Drawing.Size(68, 17);
+            this.checkBoxEmprunt.TabIndex = 17;
+            this.checkBoxEmprunt.Text = "En cours";
+            this.checkBoxEmprunt.UseVisualStyleBackColor = true;
+            this.checkBoxEmprunt.CheckedChanged += new System.EventHandler(this.checkBoxEmprunt_CheckedChanged);
+            // 
             // MesEmprunts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(602, 450);
+            this.Controls.Add(this.checkBoxEmprunt);
+            this.Controls.Add(this.buttonProlonger);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menu);
             this.Controls.Add(this.PassBox);
@@ -158,5 +183,7 @@
         private System.Windows.Forms.Label Titre;
         private System.Windows.Forms.Button menu;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonProlonger;
+        private System.Windows.Forms.CheckBox checkBoxEmprunt;
     }
 }
