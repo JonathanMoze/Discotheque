@@ -44,6 +44,7 @@ namespace projet
 
         void chargerListeAlbum()
         {
+            listAlbums.Items.Clear();
             var emprunts = (from em in musiqueSQL.Emprunter
                             where em.Code_Abonné == abn.Code_Abonné
                             select em).ToList();
