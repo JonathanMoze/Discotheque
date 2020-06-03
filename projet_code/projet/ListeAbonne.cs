@@ -34,6 +34,7 @@ namespace projet
                             select e).ToList();
             // on initialise la listbox
             listBox1.Items.Clear();
+            PersEmpr.Clear();
             // création des objets locaux et remplissage de la listbox
             foreach (Abonné a in abonnés)
             {
@@ -85,6 +86,7 @@ namespace projet
                     abn = abonnés.First();
                     musiqueBase.Abonné.Remove(abn);
                     musiqueBase.SaveChanges();
+                    ChargeListBoxTitresAlbums(); //Je sais pas si c'est vraiment utile 
                 }
             }
         }
