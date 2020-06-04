@@ -15,12 +15,17 @@ namespace projet
     {
         MusiqueSQLEntities musiqueBase;
         Abonné abn;
+        Dictionary<int, DateTime> PersEmpr;
+
         public ListeAbonne()
         {
             InitializeComponent();
             musiqueBase = new MusiqueSQLEntities();
+            PersEmpr = new Dictionary<int, DateTime>();
+
             ChargerAboInactifs();
             labelDate.Text = "";
+            ChargerAbo();
         }
         //Charger les abonnés inactifs dans la listBox
         private void ChargerAboInactifs()
@@ -57,6 +62,55 @@ namespace projet
                 }
             }
             #endregion
+        }
+        private void ChargerAbo()
+        {
+            // on récupère tous les albums
+            var abonnés = (from a in musiqueBase.Abonné
+                           orderby a.Nom_Abonné
+                           select a).ToList();
+
+            var emprunts = (from e in musiqueBase.Emprunter
+                            orderby e.Code_Abonné
+                            select e).ToList();
+            // on initialise la listbox
+            listBox2.Items.Clear();
+            // création des objets locaux et remplissage de la listbox
+            foreach (Abonné a in abonnés)
+            {
+                string nom, prenom;
+                DateTime dateEmprunt = default;
+                //Chercher la date la plus récente
+                foreach (Emprunter e in emprunts)
+                {
+                    if (a.Code_Abonné == e.Code_Abonné && DateTime.Compare(dateEmprunt, (DateTime)e.Date_Emprunt) < 0)
+                    {
+                        dateEmprunt = (DateTime)e.Date_Emprunt;
+                    }
+                }
+                PersEmpr[a.Code_Abonné] = dateEmprunt;
+                // Mettre un nom sans espaces 
+                if (a.Nom_Abonné == null) nom = "Sans nom";
+                else
+                {
+                    string[] v = System.Text.RegularExpressions.Regex.Split(a.Nom_Abonné, "  ");
+                    nom = v[0];
+                }
+                // Mettre un prénom sans espaces
+                if (a.Prénom_Abonné == null) prenom = "Sans prénom";
+                else
+                {
+                    string[] v = System.Text.RegularExpressions.Regex.Split(a.Prénom_Abonné, "  ");
+                    prenom = v[0];
+                }
+                //Ajout dans la listBox selon la présence de date
+                if (dateEmprunt == default)
+                {
+                    listBox2.Items.Add(nom + " " + prenom + "    -    N'a pas encore fait d'emprunt");
+                }
+                else listBox2.Items.Add(nom + " " + prenom + "    -    " + dateEmprunt.ToString());
+            }
+
         }
 
         //Supprimer la liste 
