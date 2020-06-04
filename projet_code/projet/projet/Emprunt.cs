@@ -120,15 +120,22 @@ namespace projet
             abn.Login = "temp";
             bool emprunter = false;
             Album AlbSelection = new Album();
-            if (listBox1.SelectedItem != null && !titreAlbum.Text.Contains("INDISPONIBLE"))
+            try
             {
-                AlbSelection = (Album)listBox1.SelectedItem;
+                if (listBox1.SelectedItem != null && !titreAlbum.Text.Contains("INDISPONIBLE"))
+                {
+                    AlbSelection = (Album)listBox1.SelectedItem;
+                }
+                else
+                {
+                    emprunter = true;
+                    label5.Text = "Cet album est indisponible";
+                    label5.ForeColor = Color.Red;
+                }
             }
-            else
+            catch
             {
-                emprunter = true;
-                label5.Text = "Cet album est indisponible";
-                label5.ForeColor = Color.Red;
+                labelMessage.Text = "Erreur ! ";
             }
             var abonnés = (from a in musique.Abonné
                            orderby a.Login
