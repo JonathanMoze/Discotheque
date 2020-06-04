@@ -20,10 +20,11 @@ namespace projet
         {
             InitializeComponent();
             musique = new MusiqueSQLEntities();
-            Affichage();
             ChargeAlbumsDispo();
+            Affichage();
+            labelDate.Text = " ";
         }
-
+        
         public void Affichage()
         {
             comboBox1.Items.Add("Tout");
@@ -89,20 +90,29 @@ namespace projet
                 {
                     if (e.Code_Album == a.Code_Album) emprunter = true;
                 }
-                if (emprunter) listBox1.Items.Add(a+"  -  INDISPONIBLE");
+                if (emprunter) listBox1.Items.Add(a + "  -  INDISPONIBLE");
                 else listBox1.Items.Add(a);
             }
             #endregion
         }
 
-
-
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             #region  Récupération d l'album sélectionné
-            titreAlbum.Text = (string)listBox1.SelectedItem;
+            try
+            {
+                Album a = (Album)listBox1.SelectedItem;
+                titreAlbum.Text = a.ToString();
+            }
+            catch
+            {
+                labelMessage.Text = "Cet album est indisponible";
+                labelMessage.ForeColor = Color.Red;
+            }
+            
             #endregion
         }
+ 
         private void button1_Click(object sender, EventArgs e)
         {
             #region Récuperation de l'album et l'abonné
@@ -171,94 +181,43 @@ namespace projet
                     musique.SaveChanges();
 
                     label5.Text = "Emprunt OK";
+                    label5.ForeColor = Color.Red;
+                    labelDate.Text = "Album emprunté le " + DateTime.Now;
+                    labelDate.ForeColor = Color.Blue;
                 }
                 catch
                 {
                     label5.Text = "Erreur !";
+                    label5.ForeColor = Color.Red;
                 }
             }
             #endregion
         }
 
-    
+
         /* Barre de recherche */
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            switch (comboBox1.SelectedItem)
-            {
-                case "Tout":
-                    #region Chargement des Albums
+            
+           var al = (from a in musique.Album
+                     where a.Titre_Album.ToUpper().Contains(textBox1.Text.ToUpper())
+                     orderby a.Titre_Album
+                     select a).ToList();
 
-                    // Récupérer tous les albums
-                    var albumms = (from a in musique.Album
-                                   where a.Titre_Album.ToUpper().Contains(textBox1.Text.ToUpper())
-                                   orderby a.Titre_Album
-                                  select a).ToList();
-
-                    var albemprunte = (from ab in musique.Emprunter
-                                       where ab.Date_Retour == null
-                                       select ab).ToList();
-                    listBox1.Items.Clear();
-                    // Remplir la listbox
-                    foreach (Album a in albumms)
-                    {
-                        bool emprunter = false;
-                        foreach (Emprunter em in albemprunte)
-                        {
-                            if (em.Code_Album == a.Code_Album) emprunter = true;
-                        }
-                        if (emprunter) listBox1.Items.Add(a + "  -  INDISPONIBLE");
-                        else listBox1.Items.Add(a);
-                    }
-                    #endregion
-                    break;
-                case "les albums disponibles uniquement":
-                    #region Chargement des Albums
-
-                    // Récupérer tous les albums
-                    var alb = (from a in musique.Album
-                               where a.Titre_Album.ToUpper().Contains(textBox1.Text.ToUpper())
-                               orderby a.Titre_Album
-                                  select a).ToList();
-
-                    var albemprunt = (from ab in musique.Emprunter
-                                       where ab.Date_Retour == null
-                                       select ab).ToList();
-                    listBox1.Items.Clear();
-                    // Remplir la listbox
-                    foreach (Album a in alb)
-                    {
-                        bool emprunter = false;
-                        foreach (Emprunter emp in albemprunt)
-                        {
-                            if (emp.Code_Album == a.Code_Album) emprunter = true;
-                        }
-                        if (!emprunter) listBox1.Items.Add(a);
-                    }
-                    #endregion
-                    break;
-                case "les albums indisponibles uniquement":
-                    var al = (from a in musique.Album
-                               where a.Titre_Album.ToUpper().Contains(textBox1.Text.ToUpper())
-                               orderby a.Titre_Album
-                               select a).ToList();
-
-                    var albemprun = (from ab in musique.Emprunter
-                                      where ab.Date_Retour == null
-                                      select ab).ToList();
-                    listBox1.Items.Clear();
-                    // Remplir la listbox
-                    foreach (Album a in al)
-                    {
-                        bool emprunter = false;
-                        foreach (Emprunter emp in albemprun)
-                        {
-                            if (emp.Code_Album == a.Code_Album) emprunter = true;
-                        }
-                        if (emprunter) listBox1.Items.Add(a);
-                    }
-                    break;
-            }
+           var albemprun = (from ab in musique.Emprunter
+                            where ab.Date_Retour == null
+                            select ab).ToList();
+           listBox1.Items.Clear();
+           // Remplir la listbox
+           foreach (Album a in al)
+           {
+               bool emprunter = false;
+               foreach (Emprunter emp in albemprun)
+               {
+                   if (emp.Code_Album == a.Code_Album) emprunter = true;
+               }
+               if (emprunter) listBox1.Items.Add(a);
+           }
         }
 
         #region Revenir au menu principal
@@ -300,7 +259,6 @@ namespace projet
             Application.Run(new Inscription());
         }
         #endregion
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBox1.SelectedItem)
