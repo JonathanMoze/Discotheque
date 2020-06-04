@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace projet
 {
-    public partial class Menu : Form
+    public partial class MenuAbonné : Form
     {
-        public Menu()
+        public MenuAbonné()
         {
             InitializeComponent();           
         }
@@ -52,6 +52,18 @@ namespace projet
         private void runMesEmprunts()
         {
             Application.Run(new MesEmprunts());
+        }
+        #endregion
+
+        #region Aller à la page démarrage
+        private void button4_Click(object sender, EventArgs e)
+        {
+            new System.Threading.Thread(new System.Threading.ThreadStart(runDemarrage)).Start();
+            this.Close();
+        }
+        private void runDemarrage()
+        {
+            Application.Run(new Demarrage());
         }
         #endregion
     }
