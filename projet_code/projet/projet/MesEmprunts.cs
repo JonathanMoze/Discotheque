@@ -36,7 +36,6 @@ namespace projet
                                where a.Login == LoginBox.Text && a.Password == PassBox.Text
                                select a).ToList();
                     abn = abo.First();
-
                 }
 
                 chargerListeAlbum();
@@ -162,7 +161,6 @@ namespace projet
                     labelDate.ForeColor = Color.Blue;
                 }
             }
-
         }
 
         private void buttonPrologerAll_Click(object sender, EventArgs e)
