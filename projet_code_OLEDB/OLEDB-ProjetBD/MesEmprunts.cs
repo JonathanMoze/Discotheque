@@ -20,13 +20,12 @@ namespace OLEDB_ProjetBD
         public MesEmprunts()
         {
             InitializeComponent();
+            dbCon = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+            dbCon.Open();
             abn = new Abonné();
             buttonProlonger.Enabled = checkBoxEmprunt.Checked && listAlbums.SelectedItem != null;
             buttonPrologerAll.Enabled = checkBoxEmprunt.Checked;
             checkBoxEmprunt.Enabled = abn == null;
-
-            dbCon = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-            dbCon.Open();
         }
 
         private void buttonConnexion_Click(object sender, EventArgs e)

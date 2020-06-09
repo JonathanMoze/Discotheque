@@ -22,6 +22,8 @@ namespace OLEDB_ProjetBD
         public Retards()
         {
             InitializeComponent();
+            dbCon = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+            dbCon.Open();
             abos = new List<Abonné>();
             emprunts = new List<Emprunter>();
             chargeRetards();
