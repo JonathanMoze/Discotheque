@@ -14,15 +14,12 @@ namespace projet
     public partial class ListeAbonne : Form
     {
         MusiqueSQLEntities musiqueBase;
-        Abonné abn;
-        Dictionary<int, DateTime> PersEmpr;
-
+        List<Abonné> AnciensAbo;
         public ListeAbonne()
         {
             InitializeComponent();
             musiqueBase = new MusiqueSQLEntities();
-            PersEmpr = new Dictionary<int, DateTime>();
-
+            AnciensAbo = new List<Abonné>();
             ChargerAboInactifs();
             labelDate.Text = "";
             ChargerAbo();
@@ -30,21 +27,23 @@ namespace projet
         //Charger les abonnés inactifs dans la listBox
         private void ChargerAboInactifs()
         {
+            AnciensAbo.Clear();
             #region Les abonnés qui dont le dernier emprunt date d'il y a un an
             var abonIn = (from a in musiqueBase.Abonné
-                               join em in musiqueBase.Emprunter on a.Code_Abonné equals em.Code_Abonné
-                               where DbFunctions.AddYears(em.Date_Emprunt.Value, 1).Value.CompareTo(DateTime.Now) < 0
-                               select a).Distinct().ToList();
+                          join em in musiqueBase.Emprunter on a.Code_Abonné equals em.Code_Abonné
+                          where DbFunctions.AddYears(em.Date_Emprunt.Value, 1).Value.CompareTo(DateTime.Now) < 0
+                          select a).Distinct().ToList();
             #endregion
             #region Les emprunts
             var emprunts = (from e in musiqueBase.Emprunter
                             orderby e.Code_Abonné
                             select e).Distinct().ToList();
             #endregion
-            DateTime dateEmprunt = default;
+
             #region les ajouter dans la listbox1
             foreach (Abonné a in abonIn)
-            { 
+            {
+                DateTime dateEmprunt = default;
                 //Chercher la date la plus récente
                 foreach (Emprunter e in emprunts)
                 {
@@ -54,11 +53,14 @@ namespace projet
                     }
                 }
                 // afficher les abonnés inactifs
-
-                 listBox1.Items.Add(a);
-                if (listBox1.SelectedItems != null)
+                if (dateEmprunt != default && DateTime.Compare(dateEmprunt.AddYears(1), DateTime.Now) < 0)
                 {
-                    labelDate.Text = " " + dateEmprunt;
+                    listBox1.Items.Add(a);
+                    AnciensAbo.Add(a);
+                    if (listBox1.SelectedItems != null)
+                    {
+                        labelDate.Text = " " + dateEmprunt;
+                    }
                 }
             }
             #endregion
@@ -88,21 +90,9 @@ namespace projet
                         dateEmprunt = (DateTime)e.Date_Emprunt;
                     }
                 }
-                PersEmpr[a.Code_Abonné] = dateEmprunt;
                 // Mettre un nom sans espaces 
-                if (a.Nom_Abonné == null) nom = "Sans nom";
-                else
-                {
-                    string[] v = System.Text.RegularExpressions.Regex.Split(a.Nom_Abonné, "  ");
-                    nom = v[0];
-                }
-                // Mettre un prénom sans espaces
-                if (a.Prénom_Abonné == null) prenom = "Sans prénom";
-                else
-                {
-                    string[] v = System.Text.RegularExpressions.Regex.Split(a.Prénom_Abonné, "  ");
-                    prenom = v[0];
-                }
+                nom = nomAbonné(a);
+                prenom = prenomAbonné(a);
                 //Ajout dans la listBox selon la présence de date
                 if (dateEmprunt == default)
                 {
@@ -113,12 +103,46 @@ namespace projet
 
         }
 
+        private string nomAbonné(Abonné a)
+        {
+            string nom = "Sans nom";
+            if (a.Nom_Abonné != null)
+            {
+                string[] v = System.Text.RegularExpressions.Regex.Split(a.Nom_Abonné, "  ");
+                nom = v[0];
+            }
+            return nom;
+        }
+
+        private string prenomAbonné(Abonné a)
+        {
+            string nom = "Sans prénom";
+            if (a.Prénom_Abonné != null)
+            {
+                string[] v = System.Text.RegularExpressions.Regex.Split(a.Prénom_Abonné, "  ");
+                nom = v[0];
+            }
+            return nom;
+        }
+
         //Supprimer la liste 
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach(Abonné a in listBox1.Items)
+            foreach (Abonné a in AnciensAbo)
             {
-                musiqueBase.Abonné.Remove(a);
+                var nonRetourner = musiqueBase.Emprunter.Where(em => em.Date_Retour == null && em.Code_Abonné == a.Code_Abonné).Count();
+                int compte = (int)nonRetourner;
+                if (compte == 0) musiqueBase.Abonné.Remove(a);
+                else
+                {
+                    string message = nomAbonné(a) + " " + prenomAbonné(a) + " n'a pas rendu tous ses albums empruntés, voulez vous quand même le supprimer";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    var result = MessageBox.Show(message, "Erreur", buttons);
+                    if (result == DialogResult.Yes)
+                    {
+                        musiqueBase.Abonné.Remove(a);
+                    }
+                }
             }
             try
             {
@@ -181,6 +205,39 @@ namespace projet
                 }
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                Abonné a = (Abonné)listBox1.SelectedItem;
+                var nonRetourner = musiqueBase.Emprunter.Where(em => em.Date_Retour == null && em.Code_Abonné == a.Code_Abonné).Count();
+                int compte = (int)nonRetourner;
+                if (compte == 0) musiqueBase.Abonné.Remove(a);
+                else
+                {
+                    string message = nomAbonné(a) + " " + prenomAbonné(a) + " n'a pas rendu tous ses albums empruntés, voulez vous quand même le supprimer";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    var result = MessageBox.Show(message, "Erreur", buttons);
+                    if (result == DialogResult.Yes)
+                    {
+                        musiqueBase.Abonné.Remove(a);
+                    }
+                }
+                try
+                {
+                    musiqueBase.SaveChanges();
+                    labelMessage.Text = "Abonnés inactifs supprimés";
+                    labelMessage.ForeColor = Color.Red;
+                    listBox1.Items.Clear();
+                    ChargerAboInactifs();
+                }
+                catch
+                {
+                    labelMessage.Text = "Echec !";
+                    labelMessage.ForeColor = Color.Red;
+                }
+            }
+        }
     }
 }
-

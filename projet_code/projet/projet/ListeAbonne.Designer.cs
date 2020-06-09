@@ -39,6 +39,7 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.SupprimerAbo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelMessage
@@ -52,7 +53,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(354, 200);
+            this.button1.Location = new System.Drawing.Point(356, 206);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(186, 37);
             this.button1.TabIndex = 5;
@@ -145,11 +146,22 @@
             this.label4.TabIndex = 15;
             this.label4.Text = "Tous les abonnés";
             // 
+            // SupprimerAbo
+            // 
+            this.SupprimerAbo.Location = new System.Drawing.Point(356, 170);
+            this.SupprimerAbo.Name = "SupprimerAbo";
+            this.SupprimerAbo.Size = new System.Drawing.Size(186, 30);
+            this.SupprimerAbo.TabIndex = 16;
+            this.SupprimerAbo.Text = "Supprimer l\'abonné";
+            this.SupprimerAbo.UseVisualStyleBackColor = true;
+            this.SupprimerAbo.Click += new System.EventHandler(this.button3_Click);
+            // 
             // ListeAbonne
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.SupprimerAbo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBox2);
@@ -181,5 +193,6 @@
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button SupprimerAbo;
     }
 }
