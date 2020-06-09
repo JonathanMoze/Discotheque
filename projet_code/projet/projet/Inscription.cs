@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Configuration;
 
-namespace OLEDB_ProjetBD
+namespace projet
 {
     public partial class Inscription : Form
     {

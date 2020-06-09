@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OLEDB_ProjetBD
+namespace projet
 {
     public partial class Emprunt : Form
     {

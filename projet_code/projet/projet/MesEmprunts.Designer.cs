@@ -1,4 +1,4 @@
-﻿namespace OLEDB_ProjetBD
+﻿namespace projet
 {
     partial class MesEmprunts
     {
