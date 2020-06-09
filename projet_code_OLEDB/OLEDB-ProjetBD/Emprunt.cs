@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Data.Entity.SqlServer;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
