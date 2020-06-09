@@ -15,12 +15,17 @@ namespace projet
     {
         MusiqueSQLEntities musiqueBase;
         Abonné abn;
+        Dictionary<int, DateTime> PersEmpr;
+
         public ListeAbonne()
         {
             InitializeComponent();
             musiqueBase = new MusiqueSQLEntities();
+            PersEmpr = new Dictionary<int, DateTime>();
+
             ChargerAboInactifs();
             labelDate.Text = "";
+            ChargerAbo();
         }
         //Charger les abonnés inactifs dans la listBox
         private void ChargerAboInactifs()
@@ -36,10 +41,11 @@ namespace projet
                             orderby e.Code_Abonné
                             select e).Distinct().ToList();
             #endregion
-            DateTime dateEmprunt = default;
+            
             #region les ajouter dans la listbox1
             foreach (Abonné a in abonIn)
-            { 
+            {
+                DateTime dateEmprunt = default;
                 //Chercher la date la plus récente
                 foreach (Emprunter e in emprunts)
                 {
@@ -58,13 +64,85 @@ namespace projet
             }
             #endregion
         }
+        private void ChargerAbo()
+        {
+            // on récupère tous les albums
+            var abonnés = (from a in musiqueBase.Abonné
+                           orderby a.Nom_Abonné
+                           select a).ToList();
+
+            var emprunts = (from e in musiqueBase.Emprunter
+                            orderby e.Code_Abonné
+                            select e).ToList();
+            // on initialise la listbox
+            listBox2.Items.Clear();
+            // création des objets locaux et remplissage de la listbox
+            foreach (Abonné a in abonnés)
+            {
+                string nom, prenom;
+                DateTime dateEmprunt = default;
+                //Chercher la date la plus récente
+                foreach (Emprunter e in emprunts)
+                {
+                    if (a.Code_Abonné == e.Code_Abonné && DateTime.Compare(dateEmprunt, (DateTime)e.Date_Emprunt) < 0)
+                    {
+                        dateEmprunt = (DateTime)e.Date_Emprunt;
+                    }
+                }
+                PersEmpr[a.Code_Abonné] = dateEmprunt;
+                // Mettre un nom sans espaces 
+                nom = nomAbonné(a);
+                prenom = prenomAbonné(a);
+                //Ajout dans la listBox selon la présence de date
+                if (dateEmprunt == default)
+                {
+                    listBox2.Items.Add(nom + " " + prenom + "    -    N'a pas encore fait d'emprunt");
+                }
+                else listBox2.Items.Add(nom + " " + prenom + "    -    " + dateEmprunt.ToString());
+            }
+
+        }
+
+        private string nomAbonné(Abonné a)
+        {
+            string nom = "Sans nom";
+            if (a.Nom_Abonné != null)
+            {
+                string[] v = System.Text.RegularExpressions.Regex.Split(a.Nom_Abonné, "  ");
+                nom = v[0];
+            }
+            return nom;
+        }
+
+        private string prenomAbonné(Abonné a)
+        {
+            string nom = "Sans prénom";
+            if (a.Prénom_Abonné != null)
+            {
+                string[] v = System.Text.RegularExpressions.Regex.Split(a.Prénom_Abonné, "  ");
+                nom = v[0];
+            }
+            return nom;
+        }
 
         //Supprimer la liste 
         private void button1_Click(object sender, EventArgs e)
         {
             foreach(Abonné a in listBox1.Items)
             {
-                musiqueBase.Abonné.Remove(a);
+                var nonRetourner = musiqueBase.Emprunter.Where(em => em.Date_Retour == null && em.Code_Abonné == a.Code_Abonné).Count();
+                int compte = (int)nonRetourner;
+                if (compte == 0) musiqueBase.Abonné.Remove(a);
+                else
+                {
+                    string message = nomAbonné(a) + " " + prenomAbonné(a) + " n'a pas rendu tous ses albums empruntés, voulez vous quand même le supprimer";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    var result = MessageBox.Show(message, "Erreur", buttons);
+                    if (result == DialogResult.Yes)
+                    {
+                        musiqueBase.Abonné.Remove(a);
+                    }
+                }
             }
             try
             {
@@ -127,6 +205,8 @@ namespace projet
                 }
             }
         }
+        
+
     }
 }
 

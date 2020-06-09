@@ -98,18 +98,22 @@ namespace projet
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            label5.Text = "";
+            labelMessage.Text = "";
+            labelDate.Text = "";
             #region  Récupération d l'album sélectionné
             try
             {
                 Album a = (Album)listBox1.SelectedItem;
                 titreAlbum.Text = a.ToString();
+                button1.Enabled = true;
             }
             catch
             {
                 labelMessage.Text = "Cet album est indisponible";
                 labelMessage.ForeColor = Color.Red;
+                button1.Enabled = false;
             }
-            
             #endregion
         }
  
@@ -119,16 +123,27 @@ namespace projet
             Abonné abn = new Abonné();
             abn.Login = "temp";
             bool emprunter = false;
+            labelMessage.Text = "";
+            label5.Text = "";
             Album AlbSelection = new Album();
-            if (listBox1.SelectedItem != null && !titreAlbum.Text.Contains("INDISPONIBLE"))
-            {
-                AlbSelection = (Album)listBox1.SelectedItem;
+            try
+            {                
+                if (listBox1.SelectedItem != null && !titreAlbum.Text.Contains("INDISPONIBLE"))
+                {
+                    AlbSelection = (Album)listBox1.SelectedItem;
+
+                }
+                else
+                {
+                    emprunter = true;
+                    label5.Text = "Cet album est indisponible";
+                    label5.ForeColor = Color.Red;
+                    
+                }
             }
-            else
+            catch
             {
-                emprunter = true;
-                label5.Text = "Cet album est indisponible";
-                label5.ForeColor = Color.Red;
+                labelMessage.Text = "Veuillez choisir un autre album et cliquez sur emprunter ";
             }
             var abonnés = (from a in musique.Abonné
                            orderby a.Login
@@ -160,7 +175,7 @@ namespace projet
                 {
                     if (em.Code_Album == AlbSelection.Code_Album)
                     {
-                        emprunter = true;
+                        //emprunter = true;
                         label5.Text = "Cet album est indisponible";
                         label5.ForeColor = Color.Red;
                     }
@@ -179,7 +194,7 @@ namespace projet
                 try
                 {
                     musique.SaveChanges();
-
+                    Login.Clear();
                     label5.Text = "Emprunt OK";
                     label5.ForeColor = Color.Red;
                     labelDate.Text = "Album emprunté le " + DateTime.Now;
@@ -187,7 +202,7 @@ namespace projet
                 }
                 catch
                 {
-                    label5.Text = "Erreur !";
+                    label5.Text = "Erreur !!";
                     label5.ForeColor = Color.Red;
                 }
             }

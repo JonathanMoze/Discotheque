@@ -75,14 +75,13 @@ namespace projet
                 DateTime dateEmprunt = (DateTime)e.Date_Emprunt;
                 DateTimeOffset dateLimite = new DateTimeOffset(dateEmprunt);
                 dateLimite = dateLimite.AddMonths(1).AddDays(10);
-                if (dateLimite <= DateTime.Today)
+                if (dateLimite <= DateTime.Today && e.Date_Retour==null)
                 {
                     emprunts.Add(e);
                     if (!abos.Contains(e.Abonné))
                     {
                         abos.Add(e.Abonné);
                     }
-
                 }
             }
 
