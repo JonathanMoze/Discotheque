@@ -1,4 +1,4 @@
-﻿namespace projet
+﻿namespace OLEDB_ProjetBD
 {
     partial class MenuAbonné
     {

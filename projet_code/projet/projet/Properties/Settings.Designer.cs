@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace projet.Properties
+namespace OLEDB_ProjetBD.Properties
 {
 
 

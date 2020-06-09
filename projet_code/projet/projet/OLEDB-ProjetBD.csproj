@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{11C0D8D4-FD6D-4239-98E3-FF5EFD067013}</ProjectGuid>
+    <ProjectGuid>{F456B54E-C2D2-47E8-8521-B7AC54B107FE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>projet</RootNamespace>
-    <AssemblyName>projet</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>OLEDB_ProjetBD</RootNamespace>
+    <AssemblyName>OLEDB-ProjetBD</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -33,18 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,14 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbonnéPartial.cs" />
-    <Compile Include="AlbumPartial.cs" />
+    <Compile Include="Abonné.cs" />
+    <Compile Include="Album.cs" />
+    <Compile Include="Editeur.cs" />
+    <Compile Include="Emprunt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Emprunt.Designer.cs">
+      <DependentUpon>Emprunt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Emprunter.cs" />
     <Compile Include="Demarrage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Demarrage.Designer.cs">
       <DependentUpon>Demarrage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Genre.cs" />
     <Compile Include="Inscription.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,12 +82,6 @@
     <Compile Include="MenuAbonné.Designer.cs">
       <DependentUpon>MenuAbonné.cs</DependentUpon>
     </Compile>
-    <Compile Include="Emprunt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Emprunt.Designer.cs">
-      <DependentUpon>Emprunt.cs</DependentUpon>
-    </Compile>
     <Compile Include="MenuAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,7 +94,7 @@
     <Compile Include="MesEmprunts.Designer.cs">
       <DependentUpon>MesEmprunts.cs</DependentUpon>
     </Compile>
-    <Compile Include="PaysPartial.cs" />
+    <Compile Include="Pays.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retards.cs">
@@ -112,23 +106,8 @@
     <EmbeddedResource Include="Demarrage.resx">
       <DependentUpon>Demarrage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Emprunt.resx">
-      <DependentUpon>Emprunt.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Inscription.resx">
       <DependentUpon>Inscription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ListeAbonne.resx">
-      <DependentUpon>ListeAbonne.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MenuAbonné.resx">
-      <DependentUpon>MenuAbonné.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MenuAdmin.resx">
-      <DependentUpon>MenuAdmin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MesEmprunts.resx">
-      <DependentUpon>MesEmprunts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -139,10 +118,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Retards.resx">
-      <DependentUpon>Retards.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -155,9 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

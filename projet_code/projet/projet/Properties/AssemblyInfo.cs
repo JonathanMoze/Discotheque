@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("projet")]
+[assembly: AssemblyTitle("OLEDB-ProjetBD")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("projet")]
+[assembly: AssemblyProduct("OLEDB-ProjetBD")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("11c0d8d4-fd6d-4239-98e3-ff5efd067013")]
+[assembly: Guid("f456b54e-c2d2-47e8-8521-b7ac54b107fe")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //

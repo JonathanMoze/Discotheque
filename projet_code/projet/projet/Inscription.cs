@@ -8,24 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Configuration;
 
-namespace projet
+namespace OLEDB_ProjetBD
 {
     public partial class Inscription : Form
     {
-        MusiqueSQLEntities musiqueSQL;
+        OleDbConnection dbCon;
         public Inscription()
         {
             InitializeComponent();
-            musiqueSQL = new MusiqueSQLEntities();
+            dbCon = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
             chargerComboBoxPays();
         }
 
         public void chargerComboBoxPays()
         {
-            var pays = (from p in musiqueSQL.Pays
-                        orderby p.Nom_Pays
-                        select p).ToList();
+            string sql = "select * from Pays";
+            OleDbCommand cmd = new OleDbCommand(sql, dbCon);
+            OleDbDataReader reader = cmd.ExecuteReader();
             foreach (Pays p in pays)
             {
                 comboBoxPays.Items.Add(p);
