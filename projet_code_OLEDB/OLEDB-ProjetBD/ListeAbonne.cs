@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,14 +12,12 @@ namespace OLEDB_ProjetBD
 {
     public partial class ListeAbonne : Form
     {
-        MusiqueSQLEntities musiqueBase;
         Abonné abn;
         Dictionary<int, DateTime> PersEmpr;
 
         public ListeAbonne()
         {
             InitializeComponent();
-            musiqueBase = new MusiqueSQLEntities();
             PersEmpr = new Dictionary<int, DateTime>();
 
             ChargerAboInactifs();
@@ -31,15 +28,8 @@ namespace OLEDB_ProjetBD
         private void ChargerAboInactifs()
         {
             #region Les abonnés qui dont le dernier emprunt date d'il y a un an
-            var abonIn = (from a in musiqueBase.Abonné
-                               join em in musiqueBase.Emprunter on a.Code_Abonné equals em.Code_Abonné
-                               where DbFunctions.AddYears(em.Date_Emprunt.Value, 1).Value.CompareTo(DateTime.Now) < 0
-                               select a).Distinct().ToList();
             #endregion
             #region Les emprunts
-            var emprunts = (from e in musiqueBase.Emprunter
-                            orderby e.Code_Abonné
-                            select e).Distinct().ToList();
             #endregion
             DateTime dateEmprunt = default;
             #region les ajouter dans la listbox1
@@ -66,13 +56,6 @@ namespace OLEDB_ProjetBD
         private void ChargerAbo()
         {
             // on récupère tous les albums
-            var abonnés = (from a in musiqueBase.Abonné
-                           orderby a.Nom_Abonné
-                           select a).ToList();
-
-            var emprunts = (from e in musiqueBase.Emprunter
-                            orderby e.Code_Abonné
-                            select e).ToList();
             // on initialise la listbox
             listBox2.Items.Clear();
             // création des objets locaux et remplissage de la listbox
@@ -118,11 +101,9 @@ namespace OLEDB_ProjetBD
         {
             foreach(Abonné a in listBox1.Items)
             {
-                musiqueBase.Abonné.Remove(a);
             }
             try
             {
-                musiqueBase.SaveChanges();
                 labelMessage.Text = "Abonnés inactifs supprimés";
                 labelMessage.ForeColor = Color.Red;
             }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Data.Entity.SqlServer;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
@@ -15,11 +14,9 @@ namespace OLEDB_ProjetBD
 {
     public partial class Emprunt : Form
     {
-        MusiqueSQLEntities musique;
         public Emprunt()
         {
             InitializeComponent();
-            musique = new MusiqueSQLEntities();
             ChargeAlbumsDispo();
             Affichage();
             labelDate.Text = " ";
@@ -214,14 +211,7 @@ namespace OLEDB_ProjetBD
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             
-           var al = (from a in musique.Album
-                     where a.Titre_Album.ToUpper().Contains(textBox1.Text.ToUpper())
-                     orderby a.Titre_Album
-                     select a).ToList();
-
-           var albemprun = (from ab in musique.Emprunter
-                            where ab.Date_Retour == null
-                            select ab).ToList();
+           
            listBox1.Items.Clear();
            // Remplir la listbox
            foreach (Album a in al)

@@ -19,6 +19,7 @@ namespace OLEDB_ProjetBD
         {
             InitializeComponent();
             dbCon = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+            dbCon.Open();
             chargerComboBoxPays();
         }
 
@@ -27,9 +28,12 @@ namespace OLEDB_ProjetBD
             string sql = "select * from Pays";
             OleDbCommand cmd = new OleDbCommand(sql, dbCon);
             OleDbDataReader reader = cmd.ExecuteReader();
-            foreach (Pays p in pays)
+            while (reader.Read())
             {
-                comboBoxPays.Items.Add(p);
+                int code = reader.GetInt32(0);
+                string nom = reader.GetString(1);
+                Pays temp = new Pays { Code_Pays = code, Nom_Pays = nom };
+                comboBoxPays.Items.Add(temp);
             }
         }
 
@@ -40,14 +44,22 @@ namespace OLEDB_ProjetBD
             {
                 if (LoginUnique(textBoxLogin.Text))
                 {
-                    Abonné a = new Abonné();
-                    a.Nom_Abonné = textBoxNom.Text;
-                    a.Prénom_Abonné = textBoxPrenom.Text;
-                    a.Login = textBoxLogin.Text;
-                    a.Password = textBoxMDP.Text;
-                    a.Code_Pays= comboBoxPays.SelectedItem.GetHashCode();
-                    musiqueSQL.Abonné.Add(a);
-                    musiqueSQL.SaveChanges();
+                    int code = 0;
+                    string sql = "select Code_Pays from Pays where Nom_Pays=" + comboBoxPays.SelectedItem.ToString();
+                    OleDbCommand cmd = new OleDbCommand(sql, dbCon);
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        code = reader.GetInt32(0);
+                    }
+                    string sql1 = "insert into Abonné (Code_Pays, Nom_Abonné, Prénom_Abonné, Login, Password) values (?,?,?,?,?)";
+                    OleDbCommand insert = new OleDbCommand(sql1, dbCon);
+                    cmd.Parameters.Add("Code_Pays", OleDbType.VarChar).Value = code;
+                    cmd.Parameters.Add("Nom_Abonné", OleDbType.VarChar).Value = textBoxNom.Text;
+                    cmd.Parameters.Add("Prénom_Abonné", OleDbType.VarChar).Value = textBoxPrenom.Text;
+                    cmd.Parameters.Add("Login", OleDbType.VarChar).Value = textBoxLogin.Text;
+                    cmd.Parameters.Add("Password", OleDbType.VarChar).Value = textBoxMDP.Text;
+                    cmd.ExecuteNonQuery();
                     labelMessage.Text = "Inscription confirmée";
                 }
             }
@@ -70,18 +82,22 @@ namespace OLEDB_ProjetBD
         {
             #region Vérifier si le login est unique
             bool unique = true;
-            var abonne = (from a in musiqueSQL.Abonné
-                          orderby a.Code_Abonné
-                          select a).ToList();
-            foreach (Abonné a in abonne)
+
+            string sql = "select Login from Abonné";
+            OleDbCommand cmd = new OleDbCommand(sql, dbCon);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
                 if (unique)
                 {
-                    unique = login != a.Login;
+                    unique = login != reader.GetString(0);
                 }
             }
-            labelMessage.Text = "Le login choisi n'est pas disponible";
-            labelMessage.ForeColor = Color.Red;
+            if (!unique)
+            {
+                labelMessage.Text = "Le login choisi n'est pas disponible";
+                labelMessage.ForeColor = Color.Red;
+            }
             return unique;
             #endregion
         }
