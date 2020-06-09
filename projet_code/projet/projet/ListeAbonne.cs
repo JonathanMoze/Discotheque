@@ -208,27 +208,29 @@ namespace projet
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItems != null)
+            if (listBox1.SelectedItem != null)
             {
-                string supp = listBox1.SelectedItems.ToString();
+                string supp = listBox1.SelectedItem.ToString();
+                Console.WriteLine("Supp = "+supp);
                 foreach (Abonné a in AnciensAbo)
                 {
-                    if (supp.Contains(nomAbonné(a) + " " + prenomAbonné(a)))
+                    if (supp.Contains(nomAbonné(a)) && supp.Contains(prenomAbonné(a)))
                     {
                         musiqueBase.Abonné.Remove(a);
+                       
                     }
                 }
-            }
-            try
-            {
-                musiqueBase.SaveChanges();
-                labelMessage.Text = "Abonné inactif supprimé";
-                labelMessage.ForeColor = Color.Red;
-            }
-            catch
-            {
-                labelMessage.Text = "Echec !";
-                labelMessage.ForeColor = Color.Red;
+                try
+                {
+                    musiqueBase.SaveChanges();
+                    labelMessage.Text = "Abonné inactif supprimé";
+                    labelMessage.ForeColor = Color.Red;
+                }
+                catch
+                {
+                    labelMessage.Text = "Echec !";
+                    labelMessage.ForeColor = Color.Red;
+                }
             }
 
             labelDate.Text = "   ";
