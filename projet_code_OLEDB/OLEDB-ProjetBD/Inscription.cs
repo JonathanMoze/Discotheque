@@ -24,9 +24,9 @@ namespace OLEDB_ProjetBD
 
         public void chargerComboBoxPays()
         {
-            var pays = (from p in musiqueSQL.Pays
-                        orderby p.Nom_Pays
-                        select p).ToList();
+            string sql = "select * from Pays";
+            OleDbCommand cmd = new OleDbCommand(sql, dbCon);
+            OleDbDataReader reader = cmd.ExecuteReader();
             foreach (Pays p in pays)
             {
                 comboBoxPays.Items.Add(p);
