@@ -31,7 +31,7 @@ namespace projet
             #region Les abonnés qui dont le dernier emprunt date d'il y a un an
             var abonIn = (from a in musiqueBase.Abonné
                           join em in musiqueBase.Emprunter on a.Code_Abonné equals em.Code_Abonné
-                          where DbFunctions.AddYears(em.Date_Emprunt.Value, 1).Value.CompareTo(DateTime.Now) < 0
+                          //where DbFunctions.AddYears(em.Date_Emprunt.Value, 1).Value.CompareTo(DateTime.Now) < 0
                           select a).Distinct().ToList();
             #endregion
             #region Les emprunts
@@ -55,7 +55,7 @@ namespace projet
                 // afficher les abonnés inactifs
                 if (dateEmprunt != default && DateTime.Compare(dateEmprunt.AddYears(1), DateTime.Now) < 0)
                 {
-                    listBox1.Items.Add(a);
+                    listBox1.Items.Add(nomAbonné(a) + " " + prenomAbonné(a) + "    -    " + dateEmprunt);
                     AnciensAbo.Add(a);
                     if (listBox1.SelectedItems != null)
                     {
@@ -210,27 +210,21 @@ namespace projet
         {
             if (listBox1.SelectedItem != null)
             {
-                Abonné a = (Abonné)listBox1.SelectedItem;
-                var nonRetourner = musiqueBase.Emprunter.Where(em => em.Date_Retour == null && em.Code_Abonné == a.Code_Abonné).Count();
-                int compte = (int)nonRetourner;
-                if (compte == 0) musiqueBase.Abonné.Remove(a);
-                else
+                string supp = listBox1.SelectedItem.ToString();
+                Console.WriteLine("Supp = " + supp);
+                foreach (Abonné a in AnciensAbo)
                 {
-                    string message = nomAbonné(a) + " " + prenomAbonné(a) + " n'a pas rendu tous ses albums empruntés, voulez vous quand même le supprimer";
-                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                    var result = MessageBox.Show(message, "Erreur", buttons);
-                    if (result == DialogResult.Yes)
+                    if (supp.Contains(nomAbonné(a)) && supp.Contains(prenomAbonné(a)))
                     {
                         musiqueBase.Abonné.Remove(a);
+
                     }
                 }
                 try
                 {
                     musiqueBase.SaveChanges();
-                    labelMessage.Text = "Abonnés inactifs supprimés";
+                    labelMessage.Text = "Abonné inactif supprimé";
                     labelMessage.ForeColor = Color.Red;
-                    listBox1.Items.Clear();
-                    ChargerAboInactifs();
                 }
                 catch
                 {
@@ -238,6 +232,11 @@ namespace projet
                     labelMessage.ForeColor = Color.Red;
                 }
             }
+
+            labelDate.Text = "   ";
+            listBox1.Items.Clear();
+            ChargerAboInactifs();
         }
     }
 }
+
