@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
@@ -43,7 +44,33 @@ namespace OLEDB_ProjetBD
             {
                 if (emp.Code_Abonné == a.Code_Abonné)
                 {
-                    listRetards.Items.Add(emp.Album);
+                   String sql = "Select * " +
+                      "From Album " +
+                      "Where Code_Album = " + emp.Code_Album.ToString();
+                   OleDbCommand cmd = new OleDbCommand(sql, dbCon);
+                   OleDbDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int codeAlb = reader.GetInt32(0);
+                        string titre = reader.GetString(1);
+                        int annee = reader.GetInt32(2);
+                        int codeGenre = reader.GetInt32(3);
+                        int codeEditeur = reader.GetInt32(4);
+
+                        Album album = new Album()
+                        {
+                            Code_Album = codeAlb,
+                            Titre_Album = titre,
+                            Année_Album = annee,
+                            Code_Genre = codeGenre,
+                            Code_Editeur = codeEditeur
+                        };
+
+                        listRetards.Items.Add(album);
+                    }
+
+                    
 
                 }
             }
@@ -80,16 +107,30 @@ namespace OLEDB_ProjetBD
                 int codeAbo = reader.GetInt32(0);
                 int codeAlb = reader.GetInt32(1);
                 DateTime DateEmp = reader.GetDateTime(2);
-                DateTime DateRet = reader.GetDateTime(3);
-
-
-                emprunts.Add(new Emprunter()
+                if (!reader.IsDBNull(3))
                 {
-                    Code_Abonné = codeAbo,
-                    Code_Album = codeAlb,
-                    Date_Emprunt = DateEmp,
-                    Date_Retour = DateRet
-                });
+                    DateTime DateRet = reader.GetDateTime(3);
+
+                    retards.Add(new Emprunter()
+                    {
+                        Code_Abonné = codeAbo,
+                        Code_Album = codeAlb,
+                        Date_Emprunt = DateEmp,
+                        Date_Retour = DateRet
+                    });
+                }
+                else
+                {
+                    retards.Add(new Emprunter()
+                    {
+                        Code_Abonné = codeAbo,
+                        Code_Album = codeAlb,
+                        Date_Emprunt = DateEmp
+                    });
+                }
+
+
+
             }
 
             foreach (Emprunter e in retards)
@@ -100,9 +141,47 @@ namespace OLEDB_ProjetBD
                 if (dateLimite <= DateTime.Today && e.Date_Retour == null)
                 {
                     emprunts.Add(e);
-                    if (!abos.Contains(e.Abonné))
+
+
+                    sql = "Select * " +
+                             "From Abonné " +
+                             "Where Code_Abonné = " + e.Code_Abonné.ToString();
+
+                    cmd = new OleDbCommand(sql, dbCon);
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
                     {
-                        abos.Add(e.Abonné);
+                        int code = reader.GetInt32(0);
+                        string nom = reader.GetString(1);
+                        string prenom = reader.GetString(2);
+                        string login = reader.GetString(3);
+                        string pass = reader.GetString(4);
+                        int pays = reader.GetInt32(5);
+
+
+                        Abonné a = new Abonné()
+                        {
+                            Code_Abonné = code,
+                            Nom_Abonné = nom,
+                            Prénom_Abonné = prenom,
+                            Login = login,
+                            Password = pass,
+                            Code_Pays = pays
+
+                        };
+                        bool contient = false;
+                        foreach(Abonné abn in abos)
+                        {
+                            if(abn.Code_Abonné == a.Code_Abonné)
+                            {
+                                contient = true;
+                            }
+                        }
+
+                        if (!contient)
+                        {
+                            abos.Add(a);
+                        }
                     }
                 }
             }

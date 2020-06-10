@@ -30,47 +30,40 @@ namespace OLEDB_ProjetBD
 
         private void buttonConnexion_Click(object sender, EventArgs e)
         {
-
-            try
+            if (LoginBox.Text != null && PassBox.Text != null)
             {
-                if (LoginBox.Text != null && PassBox.Text != null)
+                string sql = "Select * " +
+                             "From Abonné " +
+                             "Where Login = '" + LoginBox.Text + "' and Password = '" + PassBox.Text + "'";
+
+                OleDbCommand cmd = new OleDbCommand(sql, dbCon);
+                OleDbDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    string sql = "Select *" +
-                                 "From Abonné" +
-                                 "Where Login = '" + LoginBox.Text + "' and Password = '" + PassBox.Text + "'";
-                    OleDbCommand cmd = new OleDbCommand(sql, dbCon);
-                    OleDbDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    int code = reader.GetInt32(0);
+                    string nom = reader.GetString(1);
+                    string prenom = reader.GetString(2);
+                    string login = reader.GetString(3);
+                    string pass = reader.GetString(4);
+                    int pays = reader.GetInt32(5);
+
+
+                    abn = new Abonné()
                     {
-                        int code = reader.GetInt32(0);
-                        string nom = reader.GetString(1);
-                        string prenom = reader.GetString(2);
-                        string login = reader.GetString(3);
-                        string pass = reader.GetString(4);
-                        int pays = reader.GetInt32(5);
-
-
-                        abn = new Abonné()
-                        {
-                            Code_Abonné = code,
-                            Nom_Abonné = nom,
-                            Prénom_Abonné = prenom,
-                            Login = login,
-                            Password = pass,
-                            Code_Pays = pays
-                        };
-                    }
-
+                        Code_Abonné = code,
+                        Nom_Abonné = nom,
+                        Prénom_Abonné = prenom,
+                        Login = login,
+                        Password = pass,
+                        Code_Pays = pays
+                    };
                 }
 
-                chargerListeAlbum();
-                checkBoxEmprunt.Enabled = abn != null;
             }
-            catch
-            {
-                labelMessage.Text = "Erreur ! Login ou Mot de Passe invalide";
-                labelMessage.ForeColor = Color.Red;
-            }
+
+            chargerListeAlbum();
+            checkBoxEmprunt.Enabled = abn != null;
+
         }
         #region Revenir au menu principal
 
@@ -78,8 +71,8 @@ namespace OLEDB_ProjetBD
         {
             listAlbums.Items.Clear();
             List<Emprunter> emprunts = new List<Emprunter>();
-            string sql = "Select *" +
-                         "From Emprunter" +
+            string sql = "Select * " +
+                         "From Emprunter " +
                          "Where Code_Abonné = '" + abn.Code_Abonné + "'";
             OleDbCommand cmd = new OleDbCommand(sql, dbCon);
             OleDbDataReader reader = cmd.ExecuteReader();
@@ -89,25 +82,35 @@ namespace OLEDB_ProjetBD
                 int codeAbo = reader.GetInt32(0);
                 int codeAlb = reader.GetInt32(1);
                 DateTime dateEmprunt = reader.GetDateTime(2);
-                DateTime dateRetour = reader.GetDateTime(3);
-
-                emprunts.Add(new Emprunter()
+                if (!reader.IsDBNull(3))
                 {
-                    Code_Abonné = codeAbo,
-                    Code_Album = codeAlb,
-                    Date_Emprunt = dateEmprunt,
-                    Date_Retour = dateRetour
-                });
+                    DateTime dateRet = reader.GetDateTime(3);
+                    emprunts.Add(new Emprunter()
+                    {
+                        Code_Abonné = codeAbo,
+                        Code_Album = codeAlb,
+                        Date_Emprunt = dateEmprunt,
+                        Date_Retour = dateRet
+                    });
+                }
+                else
+                {
+                    emprunts.Add(new Emprunter()
+                    {
+                        Code_Abonné = codeAbo,
+                        Code_Album = codeAlb,
+                        Date_Emprunt = dateEmprunt
+                    });
+                }
+
             }
-
-
 
             foreach (Emprunter emp in emprunts)
             {
                 Album album = new Album();
-                sql = "Select *" +
-                        "From Album" +
-                        "Where Code_Album = '" + emp.Code_Album + "'";
+                sql = "Select * " +
+                      "From Album " +
+                      "Where Code_Album = " + emp.Code_Album.ToString();
                 cmd = new OleDbCommand(sql, dbCon);
                 reader = cmd.ExecuteReader();
 
@@ -118,7 +121,6 @@ namespace OLEDB_ProjetBD
                     int annee = reader.GetInt32(2);
                     int codeGenre = reader.GetInt32(3);
                     int codeEditeur = reader.GetInt32(4);
-                    string asin = reader.GetString(6);
 
                     album = new Album()
                     {
@@ -126,8 +128,7 @@ namespace OLEDB_ProjetBD
                         Titre_Album = titre,
                         Année_Album = annee,
                         Code_Genre = codeGenre,
-                        Code_Editeur = codeEditeur,
-                        ASIN = asin
+                        Code_Editeur = codeEditeur
                     };
                 }
 
@@ -267,8 +268,8 @@ namespace OLEDB_ProjetBD
             buttonProlonger.Enabled = listAlbums.SelectedItem != null;
 
             List<Emprunter> emprunts = new List<Emprunter>();
-            string sql = "Select *" +
-                         "From Emprunter" +
+            string sql = "Select * " +
+                         "From Emprunter " +
                          "Where Code_Abonné = '" + abn.Code_Abonné + "'";
             OleDbCommand cmd = new OleDbCommand(sql, dbCon);
             OleDbDataReader reader = cmd.ExecuteReader();
@@ -277,24 +278,36 @@ namespace OLEDB_ProjetBD
                 int codeAbo = reader.GetInt32(0);
                 int codeAlb = reader.GetInt32(1);
                 DateTime dateEmprunt = reader.GetDateTime(2);
-                DateTime dateRetour = reader.GetDateTime(3);
-
-                emprunts.Add(new Emprunter()
+                if (!reader.IsDBNull(3))
                 {
-                    Code_Abonné = codeAbo,
-                    Code_Album = codeAlb,
-                    Date_Emprunt = dateEmprunt,
-                    Date_Retour = dateRetour
-                });
+                    DateTime dateRetour = reader.GetDateTime(3);
+                    emprunts.Add(new Emprunter()
+                    {
+                        Code_Abonné = codeAbo,
+                        Code_Album = codeAlb,
+                        Date_Emprunt = dateEmprunt,
+                        Date_Retour = dateRetour
+                    });
+                }
+                else
+                {
+                    emprunts.Add(new Emprunter()
+                    {
+                        Code_Abonné = codeAbo,
+                        Code_Album = codeAlb,
+                        Date_Emprunt = dateEmprunt
+                    });
+                }
             }
 
             foreach (Emprunter emp in emprunts)
             {
-                if (listAlbums.SelectedItem != null)
+                if (listAlbums.SelectedItem != null && emp.Code_Album == listAlbums.SelectedItem.GetHashCode())
                 {
                     labelDate.Text = " " + emp.Date_Emprunt;
                     labelDate.ForeColor = Color.Blue;
                 }
+
             }
         }
 
@@ -333,7 +346,7 @@ namespace OLEDB_ProjetBD
             foreach (Emprunter emp in list)
             {
                 String update = "Update Emprunter" +
-                            "Set Date_Emprunt = '" + System.DateTime.Now + "' "+
+                            "Set Date_Emprunt = '" + System.DateTime.Now + "' " +
                             "where Code_Abonné = '" + emp.Code_Abonné + "' and Code_Album = '" + emp.Code_Album + "'";
                 cmd = new OleDbCommand(update, dbCon);
 
