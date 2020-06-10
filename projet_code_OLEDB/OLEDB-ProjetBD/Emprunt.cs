@@ -53,26 +53,6 @@ namespace OLEDB_ProjetBD
                 listBox1.Items.Add(a.Titre_Album);
             }
             reader.Close();
-
-            // Récupérer tous les albums
-            /*var albums = (from a in musique.Album
-                          orderby a.Titre_Album
-                          select a).ToList();
-
-            var albemprunte = (from ab in musique.Emprunter
-                               where ab.Date_Retour == null
-                               select ab).ToList();
-            listBox1.Items.Clear();
-            // Remplir la listbox
-            foreach (Album a in albums)
-            {
-                bool emprunter = false;
-                foreach (Emprunter e in albemprunte)
-                {
-                    if (e.Code_Album == a.Code_Album) emprunter = true;
-                }
-                if (!emprunter) listBox1.Items.Add(a);
-            }*/
             #endregion
         }
 
@@ -90,19 +70,10 @@ namespace OLEDB_ProjetBD
                 int id = reader.GetInt32(0);
                 string titre = "Sans titre";
                 if (!reader.IsDBNull(1)) titre = reader.GetString(1);
-
                 Album a = new Album(id, titre);
-                // Ajout dans la ListBox
                 listBox1.Items.Add(a.Titre_Album);
             }
             reader.Close();
-            /*var albemprunte = (from ab in musique.Emprunter
-                               where ab.Date_Retour == null
-                               select ab).ToList();
-            foreach (Emprunter e in albemprunte)
-            {
-                listBox1.Items.Add(e.Album.Titre_Album);
-            }*/
         }
 
         public void ChargerTousAlbums()
@@ -128,27 +99,6 @@ namespace OLEDB_ProjetBD
                 else listBox1.Items.Add(a.Titre_Album);
             }
             reader.Close();
-
-            // Récupérer tous les albums
-            /* var albums = (from a in musique.Album
-                           orderby a.Titre_Album
-                           select a).ToList();
-
-             var albemprunte = (from ab in musique.Emprunter
-                                where ab.Date_Retour == null
-                                select ab).ToList();
-             listBox1.Items.Clear();
-             // Remplir la listbox
-             foreach (Album a in albums)
-             {
-                 bool emprunter = false;
-                 foreach (Emprunter e in albemprunte)
-                 {
-                     if (e.Code_Album == a.Code_Album) emprunter = true;
-                 }
-                 if (emprunter) listBox1.Items.Add(a + "  -  INDISPONIBLE");
-                 else listBox1.Items.Add(a);
-             }*/
             #endregion
         }
 
@@ -213,7 +163,6 @@ namespace OLEDB_ProjetBD
                     emprunter = true;
                     label5.Text = "Cet album est indisponible";
                     label5.ForeColor = Color.Red;
-                    
                 }
             }
             catch
@@ -235,26 +184,6 @@ namespace OLEDB_ProjetBD
                 label5.Text = "Entrez un login valide";
                 label5.ForeColor = Color.Red;
             }
-            /* var abonnés = (from a in musique.Abonné
-                            orderby a.Login
-                            select a).ToList();
-
-             // Remplir la listbox
-             foreach (Abonné a in abonnés)
-             {
-                 if (Login.Text == a.Login)
-                 {
-                     var abonné = (from ab in musique.Abonné
-                                   where ab.Login == Login.Text
-                                   select ab).ToList();
-                     abn = abonné.First();
-                 }
-                 else
-                 {
-                     label5.Text = "Entrez un login valide";
-                     label5.ForeColor = Color.Red;
-                 }
-             }*/
             // Verifier que l'album est disponible
             if (!emprunter)
             {
@@ -271,43 +200,20 @@ namespace OLEDB_ProjetBD
                     label5.ForeColor = Color.Red;
                 }
             }
-            /*if (!emprunter)
-            {
-                var albemprunte = (from ab in musique.Emprunter
-                                   where ab.Date_Retour == null
-                                   select ab).ToList();
-                foreach (Emprunter em in albemprunte)
-                {
-                    if (em.Code_Album == AlbSelection.Code_Album)
-                    {
-                        //emprunter = true;
-                        label5.Text = "Cet album est indisponible";
-                        label5.ForeColor = Color.Red;
-                    }
-                }
-            }*/
+            
             // Création d'emprunt
             if (listBox1.SelectedItem != null && abn.Login != "temp" && !emprunter)
             {
-                string insert = " insert into Emprunter (Code_Album, Code_Abonné, Date_Emprunt) " +
-                        "Values (?,?,?)";
-                OleDbCommand cmd = new OleDbCommand(insert, dbCon);
-                Console.WriteLine(abn.Code_Abonné);
-                cmd.Parameters.Add("Code_album", OleDbType.Integer).Value = AlbSelection.Code_Album;
-                cmd.Parameters.Add("Code_abonné", OleDbType.Integer).Value = abn.Code_Abonné;
-                cmd.Parameters.Add("Date_emprunt", OleDbType.VarChar).Value = DateTime.Now;
-                cmd.ExecuteNonQuery();
-                /* Emprunter E = new Emprunter()
-                 {
-                     Code_Abonné = abn.Code_Abonné,
-                     Code_Album = AlbSelection.Code_Album,
-                     Date_Emprunt = DateTime.Now
-                 };
-                 musique.Emprunter.Add(E);*/
                 try
                 {
-                    
-                    // musique.SaveChanges();
+                     string insert = " insert into Emprunter (Code_Album, Code_Abonné, Date_Emprunt) " +
+                        "Values (?,?,?)";
+                     OleDbCommand cmd = new OleDbCommand(insert, dbCon);
+                     Console.WriteLine(abn.Code_Abonné);
+                     cmd.Parameters.Add("Code_album", OleDbType.Integer).Value = AlbSelection.Code_Album;
+                     cmd.Parameters.Add("Code_abonné", OleDbType.Integer).Value = abn.Code_Abonné;
+                     cmd.Parameters.Add("Date_emprunt", OleDbType.VarChar).Value = DateTime.Now;
+                     cmd.ExecuteNonQuery();
                     Login.Clear();
                     label5.Text = "Emprunt OK";
                     label5.ForeColor = Color.Red;
@@ -319,6 +225,22 @@ namespace OLEDB_ProjetBD
                     label5.Text = "Erreur !!";
                     label5.ForeColor = Color.Red;
                 }
+            }
+            switch (comboBox1.SelectedItem)
+            {
+                case "Tout":
+                    ChargerTousAlbums();
+                    break;
+                case "les albums disponibles uniquement":
+                    ChargeAlbumsDispo();
+                    break;
+                case "les albums indisponibles uniquement":
+                    ChargerAlbumsNonDispo();
+                    break;
+                default:
+                    ChargeAlbumsDispo();
+                    break;
+
             }
             #endregion
         }
@@ -346,25 +268,6 @@ namespace OLEDB_ProjetBD
                 listBox1.Items.Add(a.Titre_Album);
             }
             reader.Close();
-            /* var al = (from a in musique.Album
-                       where a.Titre_Album.ToUpper().Contains(textBox1.Text.ToUpper())
-                       orderby a.Titre_Album
-                       select a).ToList();
-
-             var albemprun = (from ab in musique.Emprunter
-                              where ab.Date_Retour == null
-                              select ab).ToList();
-             listBox1.Items.Clear();
-             // Remplir la listbox
-             foreach (Album a in al)
-             {
-                 bool emprunter = false;
-                 foreach (Emprunter emp in albemprun)
-                 {
-                     if (emp.Code_Album == a.Code_Album) emprunter = true;
-                 }
-                 if (emprunter) listBox1.Items.Add(a);
-             }*/
         }
 
         #region Revenir au menu principal
