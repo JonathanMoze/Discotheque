@@ -232,7 +232,7 @@ namespace OLEDB_ProjetBD
         private void PopUpMessageNonRendu(Abonné a)
         {
             #region Pop up qui d'affiche si un abonné qu'on veut supprimer, n'a pas rendu son album
-            string nonRetour = "Select Emprunter.Code_Abonné " +
+            string nonRetour = "Select COUNT(Emprunter.Code_Abonné) " +
                 "from Emprunter " +
                 "inner join Abonné on Abonné.Code_Abonné = Emprunter.Code_Abonné " +
                 "inner join Album on Album.Code_Album = Emprunter.Code_Album " +
@@ -243,7 +243,7 @@ namespace OLEDB_ProjetBD
             {
                 if (reader.GetInt32(0) != 0)
                 {
-                    string message = a.Nom_Abonné + " " + a.Prénom_Abonné + " n'a pas rendu tous ses albums empruntés, voulez vous quand même le supprimer";
+                    string message = a.Nom_Abonné + " " + a.Prénom_Abonné + " n'a pas rendu tous ses albums empruntés ou n'a pas emprunté depuis plus d'un an, voulez vous quand même le supprimer";
                     MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                     var result = MessageBox.Show(message, "Erreur", buttons);
                     if (result == DialogResult.Yes)
