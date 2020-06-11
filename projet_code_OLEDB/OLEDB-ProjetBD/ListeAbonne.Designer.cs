@@ -40,6 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SupprimerAbo = new System.Windows.Forms.Button();
+            this.AboIn = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelMessage
@@ -156,11 +157,21 @@
             this.SupprimerAbo.UseVisualStyleBackColor = true;
             this.SupprimerAbo.Click += new System.EventHandler(this.SupprimerAbo_Click);
             // 
+            // AboIn
+            // 
+            this.AboIn.AutoSize = true;
+            this.AboIn.Location = new System.Drawing.Point(454, 286);
+            this.AboIn.Name = "AboIn";
+            this.AboIn.Size = new System.Drawing.Size(16, 13);
+            this.AboIn.TabIndex = 29;
+            this.AboIn.Text = "   ";
+            // 
             // ListeAbonne
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.AboIn);
             this.Controls.Add(this.SupprimerAbo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -194,5 +205,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button SupprimerAbo;
+        private System.Windows.Forms.Label AboIn;
     }
 }

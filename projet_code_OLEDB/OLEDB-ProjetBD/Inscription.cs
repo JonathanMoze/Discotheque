@@ -64,6 +64,11 @@ namespace OLEDB_ProjetBD
                     labelMessage.Text = "Inscription confirmée";
                     labelMessage.ForeColor = Color.Blue;
                 }
+                else
+                {
+                    labelMessage.Text = "Le login existe déjà. Veuillez en choisir un autre.";
+                    labelMessage.ForeColor = Color.Red;
+                }
             }
             else
             {
@@ -83,24 +88,17 @@ namespace OLEDB_ProjetBD
         private bool LoginUnique(string login)
         {
             #region Vérifier si le login est unique
-            bool unique = true;
-
-            string sql = "select Login from Abonné";
+            int nb = 0;
+           
+            string sql = "SELECT * FROM Abonné WHERE Login = \'" + login + "\'";
             OleDbCommand cmd = new OleDbCommand(sql, dbCon);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-
-                if (!unique)
-                {
-                    labelMessage.Text = "Le login choisi n'est pas disponible";
-                    labelMessage.ForeColor = Color.Red;
-                }
-
+                nb++;
             }
-
             reader.Close();
-            return unique;
+            return (nb == 0);
             #endregion
         }
 

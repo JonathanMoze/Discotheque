@@ -37,5 +37,9 @@ namespace OLEDB_ProjetBD
         {
             return Code_Album;
         }
+        public override string ToString()
+        {
+            return Titre_Album;
+        }
     }
 }
