@@ -264,7 +264,12 @@ namespace OLEDB_ProjetBD
 
         private void listAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonProlonger.Enabled = listAlbums.SelectedItem != null;
+            if(listAlbums.SelectedItem != null && checkBoxEmprunt.Checked)
+            {
+                buttonProlonger.Enabled = true;
+            }
+            
+            
             labelMessage.Text = " ";
 
             List<Emprunter> emprunts = new List<Emprunter>();

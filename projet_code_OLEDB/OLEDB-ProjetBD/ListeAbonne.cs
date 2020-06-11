@@ -155,7 +155,6 @@ namespace OLEDB_ProjetBD
                 // récupération Abonné  sélectionné
                 Abonné a = (Abonné)listBox1.SelectedItem;
                 PopUpMessageNonRendu(a);
-                //SupprimerUnAbo(a.Code_Abonné);
                 listBox1.Items.Clear();
                 ChargerAbonneinactif();
                 listBox2.Items.Clear();
